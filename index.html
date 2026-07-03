@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=1440" />
 <title>Alohub · Trợ lý AI — Mockup</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -254,7 +254,7 @@ h1,h2,h3,h4{font-family:var(--fs-display);margin:0;letter-spacing:-.01em}
     </div>
 
     <div class="conv">
-      <div class="conv-head"><button class="mback" onclick="inboxBack()">‹ Hộp thư</button>
+      <div class="conv-head">
         <div class="th-ava" style="background:#F0783C">NL<span class="ch ch-badge ch-zalo" style="width:15px;height:15px;border-radius:5px">Z</span></div>
         <div><div class="nm">Nguyễn Thị Lan</div><div class="st"><span class="ch-badge ch-zalo">Z</span>Zalo OA · <span class="mono">0938 217 xxx</span> · <span style="color:var(--ok)">● Online</span></div></div>
         <div class="spacer"></div>
@@ -926,7 +926,6 @@ h1,h2,h3,h4{font-family:var(--fs-display);margin:0;letter-spacing:-.01em}
   #knowledge .kb-body,#knowledge .kmain,#knowledge .kcol,#knowledge .krail{min-height:0}
   #assistant .aw,#assistant .amain,#assistant .ascroll,#assistant .aside{min-height:0}
   #bots .bots-scroll,#models .mscroll,#customer .stage{min-height:0}
-  .conv-head .mback{display:none;align-items:center;gap:3px;border:none;background:var(--surface-2);color:var(--brand);font-weight:800;font-family:var(--fs-display);font-size:13px;padding:7px 10px;border-radius:9px;cursor:pointer}
   /* ===== responsive layer (overrides per-screen styles) ===== */
   @media (max-width:1280px){
     #inbox.active{grid-template-columns:288px minmax(0,1fr) 324px}
@@ -976,38 +975,6 @@ h1,h2,h3,h4{font-family:var(--fs-display);margin:0;letter-spacing:-.01em}
     #intents .thead,#intents .irow{grid-template-columns:1fr 116px}
     #intents .thead>div:nth-child(3),#intents .irow>div:nth-child(3){display:none}
   }
-  @media (max-width:640px){
-    /* rail -> bottom tab bar */
-    .app{padding-bottom:58px}
-    .rail{position:fixed;left:0;right:0;bottom:0;top:auto;width:auto;height:58px;flex-direction:row;align-items:stretch;justify-content:space-around;gap:0;padding:6px 2px;border-top:1px solid var(--rail-line);z-index:3000;overflow-x:auto}
-    .rail .logo,.rail-grp,.rail-sep,.rail-spacer{display:none}
-    .rail-btn,.rail-cust{width:auto;flex:1 0 auto;min-width:50px;padding:4px 3px;font-size:9px;border-radius:9px;gap:2px;border:none}
-    .rail-btn svg,.rail-cust svg{width:19px;height:19px}
-    .rail-btn.active::before{display:none}
-    .rail-btn.active{background:var(--rail-2)}
-    /* inbox: drill-in (list -> tap -> conversation -> back) */
-    #inbox.active{display:block}
-    #inbox .ibx-col{display:flex;width:100%;height:100%}
-    #inbox .conv,#inbox .copilot{display:none}
-    #inbox.mconv .ibx-col{display:none}
-    #inbox.mconv .conv{display:flex;width:100%;height:100%}
-    #inbox .conv-head .mback{display:inline-flex}
-    /* knowledge: hide collections rail, sources full width */
-    #knowledge .kcol{display:none}
-    #knowledge .kmain{width:100%}
-    /* models: wrap provider rows */
-    #models .prov{flex-wrap:wrap;gap:8px}
-    #models .msec{padding:16px 14px}
-    #models .stop{flex-wrap:wrap}
-    /* assistant */
-    #assistant .pg-head .pill{display:none}
-    #assistant .botmenu{max-width:calc(100vw - 30px)}
-    /* headers: keep only primary action */
-    .pg-head{gap:8px;padding:0 12px}
-    .pg-head .btn:not(.primary){display:none}
-    /* customer preview scales down */
-    #customer .stage{gap:24px;padding:20px}
-  }
   </style>
   <script>
     const rail=document.querySelectorAll('.rail-btn,.rail-cust');
@@ -1025,9 +992,6 @@ h1,h2,h3,h4{font-family:var(--fs-display);margin:0;letter-spacing:-.01em}
       const th=e.target.closest('#inbox .thread'); if(th){document.querySelectorAll('#inbox .thread').forEach(x=>x.classList.remove('sel2'));th.classList.add('sel2');}
     });
     document.querySelectorAll('textarea').forEach(t=>{const f=()=>{t.style.height='auto';t.style.height=t.scrollHeight+'px'};t.addEventListener('input',f);f();});
-    function inboxBack(){var i=document.getElementById('inbox');if(i)i.classList.remove('mconv');}
-    document.addEventListener('click',function(e){var th=e.target.closest('#inbox .thread');if(th&&window.innerWidth<=640){var i=document.getElementById('inbox');if(i)i.classList.add('mconv');}});
-    document.querySelectorAll('.rail-btn,.rail-cust').forEach(function(b){b.addEventListener('click',function(){var i=document.getElementById('inbox');if(i)i.classList.remove('mconv');});});
   </script>
 
 
