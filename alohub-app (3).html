@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Alohub · Trợ lý AI — Mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --bg:#F4F5F9;--surface:#FFFFFF;--surface-2:#FBFBFE;
+  --ink:#181B2A;--ink-2:#454A61;--muted:#8388A0;--line:#E8E9F2;--line-2:#F0F1F7;
+  --brand:#3B4CE0;--brand-ink:#2334C4;--brand-soft:#EAECFF;
+  --ai:#7C4DFF;--ai-ink:#5A2FE0;--ai-soft:#F0EBFF;
+  --ok:#12A150;--ok-soft:#E4F7ED;--warn:#E8890C;--warn-soft:#FEF1DE;
+  --danger:#E5484D;--danger-soft:#FCECEC;
+  --zalo:#0068FF;--mess:#0A7CFF;--wa:#25D366;
+  --rail:#14162A;--rail-2:#1E2140;--rail-line:#2A2E52;--rail-txt:#A7ABCF;
+  --r-sm:8px;--r:12px;--r-lg:16px;
+  --sh-sm:0 1px 2px rgba(20,22,42,.06);--sh:0 8px 26px -10px rgba(20,22,42,.22);--sh-lg:0 18px 50px -18px rgba(20,22,42,.30);
+  --fs-display:"Plus Jakarta Sans",system-ui,sans-serif;--fs-body:"Inter",system-ui,sans-serif;--fs-mono:"JetBrains Mono",ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{font-family:var(--fs-body);background:var(--bg);color:var(--ink);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased}
+button{font-family:inherit;cursor:pointer}
+h1,h2,h3,h4{font-family:var(--fs-display);margin:0;letter-spacing:-.01em}
+.mono{font-family:var(--fs-mono)}
+.app{display:flex;height:100vh;overflow:hidden}
+
+/* rail */
+.rail{width:84px;background:var(--rail);flex:none;display:flex;flex-direction:column;align-items:center;padding:12px 0;gap:3px;color:var(--rail-txt)}
+.rail .logo{width:44px;height:44px;border-radius:13px;overflow:hidden;background:#fff;display:grid;place-items:center;margin-bottom:12px;box-shadow:0 6px 18px -6px rgba(0,0,0,.45)}
+.rail .logo img{width:100%;height:100%;object-fit:cover;display:block}
+.tenant-chip{width:66px;border:1px solid var(--rail-line);background:var(--rail-2);border-radius:12px;padding:7px 0 6px;display:flex;flex-direction:column;align-items:center;gap:3px;margin-bottom:8px;cursor:pointer}
+.tenant-chip .av{width:26px;height:26px;border-radius:8px;background:#F0783C;display:grid;place-items:center;color:#fff;font-weight:800;font-family:var(--fs-display);font-size:13px;position:relative}
+.tenant-chip .av .ch{position:absolute;right:-4px;bottom:-4px;width:13px;height:13px;border-radius:50%;background:var(--rail);border:1px solid var(--rail-line);display:grid;place-items:center;font-size:7px;color:#fff}
+.tenant-chip .nm{font-size:9px;font-weight:700;font-family:var(--fs-display);color:#fff;max-width:60px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tenant-chip .k{font-size:7.5px;color:var(--rail-txt);letter-spacing:.05em;text-transform:uppercase}
+.rail-sep{width:44px;height:1px;background:var(--rail-line);margin:5px 0}
+.rail-grp{font-size:8px;font-weight:800;color:#565b86;letter-spacing:.08em;text-transform:uppercase;font-family:var(--fs-display);margin:5px 0 1px}
+.rail-btn{width:64px;border:none;background:transparent;color:var(--rail-txt);border-radius:13px;padding:8px 0 6px;display:flex;flex-direction:column;align-items:center;gap:4px;font-size:10px;font-weight:600;font-family:var(--fs-display);transition:.15s;position:relative}
+.rail-btn svg{width:21px;height:21px;stroke-width:1.9}
+.rail-btn:hover{background:var(--rail-2);color:#fff}
+.rail-btn.active{background:var(--rail-2);color:#fff}
+.rail-btn.active::before{content:"";position:absolute;left:-10px;top:11px;bottom:11px;width:3px;border-radius:3px;background:linear-gradient(var(--brand),var(--ai))}
+.rail-spacer{flex:1}
+.rail-cust{width:64px;border:1px solid var(--rail-line);background:var(--rail-2);color:#fff;border-radius:13px;padding:8px 0;display:flex;flex-direction:column;align-items:center;gap:4px;font-size:9px;font-weight:700;font-family:var(--fs-display);text-align:center;line-height:1.2}
+.rail-cust svg{width:19px;height:19px}
+.rail-cust.active{background:linear-gradient(135deg,var(--brand),var(--ai));border-color:transparent}
+.rail-ava{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#f0a,#70f);display:grid;place-items:center;color:#fff;font-weight:700;font-size:13px;font-family:var(--fs-display);margin-top:6px}
+
+/* screen */
+.screen{flex:1;min-width:0;display:none;overflow:hidden}
+.screen.active{display:flex}
+
+/* page header */
+.pg-head{height:60px;flex:none;background:var(--surface);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:14px;padding:0 22px}
+.pg-head h2{font-size:16px;font-weight:700}
+.pg-head .sub{color:var(--muted);font-size:12.5px}
+.pg-head .spacer{flex:1}
+.botpick{display:flex;align-items:center;gap:9px;background:var(--surface-2);border:1px solid var(--line);border-radius:10px;padding:6px 11px;cursor:pointer}
+.botpick .ic{width:26px;height:26px;border-radius:7px;background:var(--ai);display:grid;place-items:center;color:#fff;flex:none}
+.botpick .k{font-size:9.5px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.04em;font-family:var(--fs-display)}
+.botpick .nm{font-size:13px;font-weight:700;font-family:var(--fs-display)}
+.botpick .chev{color:var(--muted);font-size:11px}
+
+/* shared atoms */
+.pill{display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 11px;border-radius:100px;font-size:11.5px;font-weight:600;font-family:var(--fs-display)}
+.pill.brand{background:var(--brand-soft);color:var(--brand-ink)}
+.pill.ai{background:var(--ai-soft);color:var(--ai-ink)}
+.pill.ok{background:var(--ok-soft);color:var(--ok)}
+.pill.warn{background:var(--warn-soft);color:var(--warn)}
+.pill.mut{background:var(--line-2);color:var(--ink-2)}
+.dot{width:7px;height:7px;border-radius:50%;background:currentColor;flex:none}
+.btn{height:36px;padding:0 15px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font-weight:600;font-family:var(--fs-display);font-size:13px;display:inline-flex;align-items:center;gap:7px;transition:.15s}
+.btn:hover{border-color:#cdd0e0;background:var(--surface-2)}
+.btn svg{width:16px;height:16px}
+.btn.primary{background:var(--brand);border-color:var(--brand);color:#fff}
+.btn.primary:hover{background:var(--brand-ink)}
+.btn.ai{background:var(--ai);border-color:var(--ai);color:#fff}
+.btn.ai:hover{background:var(--ai-ink)}
+.btn.sm{height:30px;padding:0 11px;font-size:12px}
+.ch-badge{width:22px;height:22px;border-radius:7px;display:grid;place-items:center;color:#fff;font-size:10px;font-weight:800;font-family:var(--fs-display);flex:none}
+.ch-zalo{background:var(--zalo)}.ch-mess{background:var(--mess)}.ch-wa{background:var(--wa)}
+.sw{display:inline-block;vertical-align:middle;width:44px;height:24px;border-radius:100px;background:#D6D8E6;position:relative;flex:none;cursor:pointer}
+.sw::after{content:"";position:absolute;top:2px;left:2px;width:20px;height:20px;border-radius:50%;background:#fff;transition:.2s;box-shadow:var(--sh-sm)}
+.sw.on{background:var(--ok)}.sw.on::after{left:22px}
+.chip{height:28px;padding:0 11px;border-radius:100px;border:1px solid var(--line);background:var(--surface);font-size:12px;font-weight:600;font-family:var(--fs-display);color:var(--ink-2);white-space:nowrap;display:inline-flex;align-items:center;gap:6px}
+.chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-thumb{background:#d6d8e6;border-radius:20px;border:3px solid var(--bg)}
+.notice{background:#0F1120;color:#fff;font-size:12px;text-align:center;padding:7px;font-family:var(--fs-display);letter-spacing:.02em}
+.notice b{color:#C9B6FF}
+</style>
+</head>
+<body>
+<div class="app">
+  <nav class="rail">
+    <div class="logo"><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAkACQAAD/4QAsRXhpZgAATU0AKgAAAAgAAQExAAIAAAAKAAAAGgAAAABHcmVlbnNob3QA/9sAQwAHBQUGBQQHBgUGCAcHCAoRCwoJCQoVDxAMERgVGhkYFRgXGx4nIRsdJR0XGCIuIiUoKSssKxogLzMvKjInKisq/9sAQwEHCAgKCQoUCwsUKhwYHCoqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioq/8AAEQgBhgGGAwEiAAIRAQMRAf/EAB8AAAEFAQEBAQEBAAAAAAAAAAABAgMEBQYHCAkKC//EALUQAAIBAwMCBAMFBQQEAAABfQECAwAEEQUSITFBBhNRYQcicRQygZGhCCNCscEVUtHwJDNicoIJChYXGBkaJSYnKCkqNDU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6g4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2drh4uPk5ebn6Onq8fLz9PX29/j5+v/EAB8BAAMBAQEBAQEBAQEAAAAAAAABAgMEBQYHCAkKC//EALURAAIBAgQEAwQHBQQEAAECdwABAgMRBAUhMQYSQVEHYXETIjKBCBRCkaGxwQkjM1LwFWJy0QoWJDThJfEXGBkaJicoKSo1Njc4OTpDREVGR0hJSlNUVVZXWFlaY2RlZmdoaWpzdHV2d3h5eoKDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uLj5OXm5+jp6vLz9PX29/j5+v/aAAwDAQACEQMRAD8A+kaKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKK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" alt="Alohub"/></div>
+
+    <div class="rail-grp">Vận hành</div>
+    <button class="rail-btn active" data-screen="inbox">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Hộp thư
+    </button>
+    <button class="rail-btn" data-screen="assistant">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 3a4 4 0 0 1 4 4v1a3 3 0 0 1 0 6h-1l-3 3-3-3H8a3 3 0 0 1 0-6V7a4 4 0 0 1 4-4Z"/><circle cx="10" cy="10" r="1" fill="currentColor" stroke="none"/><circle cx="14" cy="10" r="1" fill="currentColor" stroke="none"/></svg>Trợ lý AI
+    </button>
+
+    <div class="rail-sep"></div>
+    <div class="rail-grp">Bot</div>
+    <button class="rail-btn" data-screen="bots">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="4" y="8" width="16" height="12" rx="3"/><path d="M12 8V4M9 4h6"/><circle cx="9" cy="14" r="1.2" fill="currentColor" stroke="none"/><circle cx="15" cy="14" r="1.2" fill="currentColor" stroke="none"/></svg>Bots
+    </button>
+    <button class="rail-btn" data-screen="intents">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M6 3v12M6 21a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM6 6h9a3 3 0 0 1 3 3v3M18 12a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z"/></svg>Kịch bản bot
+    </button>
+
+    <div class="rail-sep"></div>
+    <div class="rail-grp">Tài nguyên</div>
+    <button class="rail-btn" data-screen="knowledge">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg>Tri thức
+    </button>
+    <button class="rail-btn" data-screen="models">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="m2 17 10 5 10-5M2 12l10 5 10-5"/></svg>Mô hình
+    </button>
+
+    <div class="rail-spacer"></div>
+    <button class="rail-cust" data-screen="customer">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 19h2"/></svg>Màn KH
+    </button>
+  </nav>
+
+  <!-- ============ SCREEN · HỘP THƯ + COPILOT ============ -->
+  <section class="screen active" id="inbox">
+    <style>
+      #inbox.active{display:grid;grid-template-columns:318px 1fr 366px}
+      .ibx-col{background:var(--surface);border-right:1px solid var(--line);min-width:0;display:flex;flex-direction:column}
+      .ibx-list-head{padding:14px 16px 10px;border-bottom:1px solid var(--line)}
+      .ibx-list-head h2{font-size:15px;font-weight:700;display:flex;align-items:center;gap:8px}
+      .ibx-search{margin-top:11px;height:36px;border:1px solid var(--line);border-radius:9px;display:flex;align-items:center;gap:8px;padding:0 11px;color:var(--muted);background:var(--surface-2)}
+      .ibx-search input{border:none;background:none;outline:none;font-family:inherit;font-size:13px;width:100%;color:var(--ink)}
+      .ibx-filters{display:flex;gap:6px;padding:10px 12px;border-bottom:1px solid var(--line);overflow:auto}
+      .ibx-threads{overflow:auto;flex:1}
+      .thread{display:flex;gap:11px;padding:12px 15px;border-bottom:1px solid var(--line-2);cursor:pointer;position:relative}
+      .thread:hover{background:var(--surface-2)}
+      .thread.sel2{background:var(--brand-soft)}
+      .thread.sel2::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--brand)}
+      .th-ava{width:42px;height:42px;border-radius:12px;flex:none;display:grid;place-items:center;color:#fff;font-weight:700;font-family:var(--fs-display);position:relative}
+      .th-ava .ch{position:absolute;right:-4px;bottom:-4px;border:2px solid #fff}
+      .th-main{min-width:0;flex:1}
+      .th-top{display:flex;align-items:center;gap:6px}
+      .th-name{font-weight:700;font-size:13.5px;font-family:var(--fs-display);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+      .th-time{margin-left:auto;font-size:11px;color:var(--muted);flex:none}
+      .th-msg{color:var(--ink-2);font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px}
+      .th-tags{display:flex;gap:5px;margin-top:6px}
+      .tag{font-size:10px;font-weight:700;font-family:var(--fs-display);padding:2px 7px;border-radius:6px}
+      .tag.bot{background:var(--ai-soft);color:var(--ai-ink)}
+      .tag.wait{background:var(--warn-soft);color:var(--warn)}
+      .tag.me{background:var(--ok-soft);color:var(--ok)}
+      .th-unread{position:absolute;right:15px;bottom:14px;min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:var(--brand);color:#fff;font-size:10.5px;font-weight:700;display:grid;place-items:center}
+      .conv{display:flex;flex-direction:column;min-width:0;background:linear-gradient(#fbfbfe,#f6f7fb)}
+      .conv-head{height:64px;flex:none;background:var(--surface);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px;padding:0 18px}
+      .conv-head .th-ava{width:40px;height:40px;border-radius:11px}
+      .conv-head .nm{font-weight:700;font-family:var(--fs-display);font-size:14.5px}
+      .conv-head .st{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px;margin-top:1px}
+      .conv-head .spacer{flex:1}
+      .icon-btn{width:36px;height:36px;border-radius:9px;border:1px solid var(--line);background:var(--surface);display:grid;place-items:center;color:var(--ink-2)}
+      .icon-btn:hover{background:var(--surface-2)}.icon-btn svg{width:18px;height:18px;stroke-width:1.9}
+      .msgs{flex:1;overflow:auto;padding:20px 22px;display:flex;flex-direction:column;gap:12px}
+      .daydiv{align-self:center;font-size:11px;color:var(--muted);background:#fff;border:1px solid var(--line);padding:3px 12px;border-radius:100px;font-weight:600;font-family:var(--fs-display)}
+      .msg{max-width:74%;display:flex;flex-direction:column;gap:3px}
+      .msg .bubble{padding:10px 13px;border-radius:15px;font-size:13.5px;line-height:1.55}
+      .msg .meta{font-size:10.5px;color:var(--muted);padding:0 4px}
+      .msg.in{align-self:flex-start}
+      .msg.in .bubble{background:#fff;border:1px solid var(--line);border-bottom-left-radius:5px}
+      .msg.out{align-self:flex-end;align-items:flex-end}
+      .msg.out .bubble{background:var(--brand);color:#fff;border-bottom-right-radius:5px}
+      .conv-foot{flex:none;background:var(--surface);border-top:1px solid var(--line);padding:11px 16px 14px}
+      .mode-bar{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+      .toggle{display:inline-flex;background:var(--line-2);border-radius:100px;padding:3px;gap:2px}
+      .toggle button{border:none;background:transparent;height:28px;padding:0 13px;border-radius:100px;font-size:12px;font-weight:700;font-family:var(--fs-display);color:var(--ink-2)}
+      .toggle button.on{background:#fff;color:var(--ink);box-shadow:var(--sh-sm)}
+      .composer{border:1px solid var(--line);border-radius:14px;background:var(--surface-2);padding:10px 12px}
+      .composer textarea{width:100%;border:none;background:none;outline:none;resize:none;font-family:inherit;font-size:13.5px;color:var(--ink);min-height:24px}
+      .composer-row{display:flex;align-items:center;gap:6px;margin-top:8px}
+      .composer-row .spacer{flex:1}
+      .cmp-ic{width:32px;height:32px;border-radius:8px;border:none;background:transparent;color:var(--muted);display:grid;place-items:center}
+      .cmp-ic:hover{background:var(--line-2);color:var(--ink)}
+      .send{height:34px;padding:0 15px;border-radius:9px;border:none;background:var(--brand);color:#fff;font-weight:700;font-family:var(--fs-display);font-size:13px;display:inline-flex;align-items:center;gap:7px}
+      .copilot{background:linear-gradient(180deg,#faf8ff,#f6f4fd);border-left:1px solid #e9e3fb;display:flex;flex-direction:column;min-width:0}
+      .cop-head{padding:15px 17px;border-bottom:1px solid #ece6fb;display:flex;align-items:center;gap:10px}
+      .cop-logo{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--ai),#b58bff);display:grid;place-items:center;color:#fff;box-shadow:0 6px 16px -6px rgba(124,77,255,.7)}
+      .cop-logo svg{width:19px;height:19px}
+      .cop-head h3{font-size:14px;font-weight:800}
+      .cop-head .sub{font-size:11.5px;color:var(--ai-ink);font-weight:600}
+      .cop-body{flex:1;overflow:auto;padding:16px}
+      .cop-q{background:#fff;border:1px solid #e6def8;border-radius:12px;padding:11px 13px;font-size:13px;color:var(--ink-2);display:flex;gap:9px}
+      .cop-q b{color:var(--ink)}
+      .cop-card{background:#fff;border:1px solid #e6def8;border-radius:14px;margin-top:12px;overflow:hidden;box-shadow:var(--sh-sm)}
+      .cc-head{display:flex;align-items:center;gap:8px;padding:11px 13px;border-bottom:1px solid var(--line-2)}
+      .cc-conf{margin-left:auto;font-size:11px;font-weight:700;font-family:var(--fs-mono);color:var(--ok)}
+      .cop-answer{padding:13px;font-size:13.5px;line-height:1.6;color:var(--ink)}
+      .cop-answer p{margin:0 0 9px}.cop-answer ul{margin:6px 0;padding-left:18px}.cop-answer li{margin:3px 0}
+      .src{display:inline-flex;align-items:center;gap:4px;font-size:10.5px;font-weight:700;font-family:var(--fs-display);background:var(--ai-soft);color:var(--ai-ink);padding:1px 6px;border-radius:5px;vertical-align:middle}
+      .cop-cites{padding:0 13px 13px;display:flex;flex-wrap:wrap;gap:6px}
+      .cite{font-size:11px;color:var(--ink-2);background:var(--surface-2);border:1px solid var(--line);border-radius:7px;padding:4px 8px;display:flex;align-items:center;gap:6px}
+      .cop-actions{display:flex;gap:8px;padding:11px 13px;border-top:1px solid var(--line-2);background:var(--surface-2)}
+      .cop-actions .btn{flex:1;justify-content:center;height:38px}
+      .cop-foot{flex:none;padding:12px 14px;border-top:1px solid #ece6fb;background:#fff}
+      .cop-ask{border:1px solid #dcd2f5;border-radius:12px;background:var(--surface-2);padding:9px 11px;display:flex;align-items:center;gap:8px}
+      .cop-ask input{border:none;background:none;outline:none;flex:1;font-family:inherit;font-size:13px;color:var(--ink)}
+      .cop-ask .go{width:32px;height:32px;border-radius:8px;border:none;background:var(--ai);color:#fff;display:grid;place-items:center}
+      .cop-sugs{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
+      .sug{font-size:11.5px;font-weight:600;font-family:var(--fs-display);color:var(--ai-ink);background:var(--ai-soft);border:1px solid #e3d8ff;border-radius:100px;padding:5px 11px}
+    </style>
+
+    <div class="ibx-col">
+      <div class="ibx-list-head">
+        <h2>Hộp thư đa kênh<span class="pill mut" style="margin-left:auto"><span class="dot" style="color:var(--brand)"></span>18 mới</span></h2>
+        <div class="ibx-search"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3-3"/></svg><input placeholder="Tìm khách, SĐT, nội dung…" /></div>
+      </div>
+      <div class="ibx-filters">
+        <button class="chip on">Tất cả</button>
+        <button class="chip"><span class="ch-badge ch-zalo" style="width:16px;height:16px;border-radius:5px">Z</span>Zalo</button>
+        <button class="chip"><span class="ch-badge ch-mess" style="width:16px;height:16px;border-radius:5px">M</span>Messenger</button>
+        <button class="chip"><span class="ch-badge ch-wa" style="width:16px;height:16px;border-radius:5px">W</span>WhatsApp</button>
+      </div>
+      <div class="ibx-threads">
+        <div class="thread sel2">
+          <div class="th-ava" style="background:#F0783C">NL<span class="ch ch-badge ch-zalo" style="width:16px;height:16px;border-radius:6px">Z</span></div>
+          <div class="th-main"><div class="th-top"><span class="th-name">Nguyễn Thị Lan</span><span class="th-time">2 phút</span></div><div class="th-msg">Serum này da dầu mụn dùng được không shop?</div><div class="th-tags"><span class="tag me">Bạn xử lý</span></div></div>
+        </div>
+        <div class="thread">
+          <div class="th-ava" style="background:#6C63E0">TQ<span class="ch ch-badge ch-mess" style="width:16px;height:16px;border-radius:6px">M</span></div>
+          <div class="th-main"><div class="th-top"><span class="th-name">Trần Minh Quân</span><span class="th-time">6 phút</span></div><div class="th-msg">Đơn của mình bao giờ giao tới Đà Nẵng ạ?</div><div class="th-tags"><span class="tag bot">Bot đang trả lời</span></div></div>
+          <span class="th-unread">2</span>
+        </div>
+        <div class="thread">
+          <div class="th-ava" style="background:#26A69A">HA<span class="ch ch-badge ch-wa" style="width:16px;height:16px;border-radius:6px">W</span></div>
+          <div class="th-main"><div class="th-top"><span class="th-name">Lê Hoàng Anh</span><span class="th-time">14 phút</span></div><div class="th-msg">Mình muốn gặp nhân viên tư vấn đổi trả</div><div class="th-tags"><span class="tag wait">Chờ chuyển Agent</span></div></div>
+          <span class="th-unread">1</span>
+        </div>
+        <div class="thread">
+          <div class="th-ava" style="background:#E0629B">PH<span class="ch ch-badge ch-zalo" style="width:16px;height:16px;border-radius:6px">Z</span></div>
+          <div class="th-main"><div class="th-top"><span class="th-name">Phạm Thu Hà</span><span class="th-time">28 phút</span></div><div class="th-msg">Cảm ơn shop, mình nhận hàng rồi nhé 💛</div><div class="th-tags"><span class="tag bot">Bot đã xử lý</span></div></div>
+        </div>
+        <div class="thread">
+          <div class="th-ava" style="background:#5B8DEF">VD<span class="ch ch-badge ch-mess" style="width:16px;height:16px;border-radius:6px">M</span></div>
+          <div class="th-main"><div class="th-top"><span class="th-name">Vũ Đức Dũng</span><span class="th-time">41 phút</span></div><div class="th-msg">Còn mã freeship cho đơn dưới 300k không?</div><div class="th-tags"><span class="tag me">Bạn xử lý</span></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="conv">
+      <div class="conv-head">
+        <div class="th-ava" style="background:#F0783C">NL<span class="ch ch-badge ch-zalo" style="width:15px;height:15px;border-radius:5px">Z</span></div>
+        <div><div class="nm">Nguyễn Thị Lan</div><div class="st"><span class="ch-badge ch-zalo">Z</span>Zalo OA · <span class="mono">0938 217 xxx</span> · <span style="color:var(--ok)">● Online</span></div></div>
+        <div class="spacer"></div>
+        <button class="icon-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></button>
+        <button class="icon-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.6 13.4 12 22l-9-9V3h10z"/><circle cx="7.5" cy="7.5" r="1.5" fill="currentColor"/></svg></button>
+      </div>
+      <div class="msgs">
+        <div class="daydiv">Hôm nay</div>
+        <div class="msg in"><div class="bubble">Chào shop, mình da dầu và hay bị mụn ẩn. Serum cấp ẩm B5 của shop dùng được cho da mình không ạ?</div><div class="meta">Nguyễn Thị Lan · 14:22</div></div>
+        <div class="msg in"><div class="bubble">Với lại dùng chung với tretinol buổi tối có sao không shop?</div><div class="meta">14:23</div></div>
+        <div class="msg out"><div class="bubble">Dạ chào chị Lan 💛 Serum B5 phù hợp với cả da dầu mụn ạ, kết cấu mỏng nhẹ không gây bí da. Em tư vấn thêm cách kết hợp với tretinol ngay đây ạ.</div><div class="meta">Bạn · 14:24 · đã gửi</div></div>
+      </div>
+      <div class="conv-foot">
+        <div class="mode-bar">
+          <div class="toggle"><button class="on">👤 Nhân viên xử lý</button><button>🤖 Bot tự trả lời</button></div>
+          <span class="pill ai" style="margin-left:auto"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3 2 5 5 2-5 2-2 5-2-5-5-2 5-2z"/></svg>Copilot đang gợi ý</span>
+        </div>
+        <div class="composer">
+          <textarea rows="1">Chị có thể dùng B5 vào buổi sáng để phục hồi hàng rào da. Với tretinol buổi tối,</textarea>
+          <div class="composer-row">
+            <button class="cmp-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m21 15-9 9-9-9a5 5 0 0 1 7-7l2 2 2-2a5 5 0 0 1 7 7z"/></svg></button>
+            <button class="cmp-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><path d="M9 9h.01M15 9h.01"/></svg></button>
+            <button class="cmp-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 2 3 14h7l-1 8 10-12h-7z"/></svg></button>
+            <div class="spacer"></div>
+            <button class="send">Gửi <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 14-7-5 14-2-5z"/></svg></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <aside class="copilot">
+      <div class="cop-head">
+        <div class="cop-logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 3a4 4 0 0 1 4 4v1a3 3 0 0 1 0 6h-1l-3 3-3-3H8a3 3 0 0 1 0-6V7a4 4 0 0 1 4-4Z"/></svg></div>
+        <div><h3>Trợ lý AI</h3><div class="sub">Tra cứu từ tri thức của LUMIÈRE</div></div>
+      </div>
+      <div class="cop-body">
+        <div class="cop-q"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--ai)" stroke-width="2" style="flex:none;margin-top:1px"><path d="M12 3a4 4 0 0 1 4 4v1a3 3 0 0 1 0 6h-1l-3 3-3-3H8a3 3 0 0 1 0-6V7a4 4 0 0 1 4-4Z"/></svg><div>Câu hỏi được <b>tự động rút</b> từ hội thoại: <b>“Serum B5 có dùng cho da dầu mụn, kết hợp tretinol thế nào?”</b></div></div>
+        <div class="cop-card">
+          <div class="cc-head"><span class="pill ai"><span class="dot"></span>Gợi ý trả lời</span><span class="cc-conf">● Tin cậy 94%</span></div>
+          <div class="cop-answer">
+            <p>Dạ được ạ! Serum B5 phù hợp với <b>da dầu mụn</b> nhờ kết cấu mỏng nhẹ, không dầu, giúp phục hồi và làm dịu da đang bị mụn ẩn. <span class="src">📄 Cẩm nang · tr.4</span></p>
+            <p>Kết hợp với tretinol:</p>
+            <ul><li>Sáng: dùng B5 sau toner để cấp ẩm.</li><li>Tối: apply B5 <b>trước</b> tretinol 5–10 phút để giảm kích ứng. <span class="src">📄 Routine · tr.2</span></li></ul>
+            <p>Lưu ý: bắt đầu 2–3 lần/tuần và luôn chống nắng ban ngày.</p>
+          </div>
+          <div class="cop-cites"><span class="cite"><span class="ch-badge" style="background:var(--ai);width:16px;height:16px;border-radius:5px">📄</span>Cẩm nang sản phẩm.pdf</span><span class="cite"><span class="ch-badge" style="background:var(--ok);width:16px;height:16px;border-radius:5px">✓</span>FAQ Da dầu mụn</span></div>
+          <div class="cop-actions"><button class="btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>Chèn vào ô soạn</button><button class="btn ai"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 14-7-5 14-2-5z"/></svg>Gửi ngay cho khách</button></div>
+        </div>
+      </div>
+      <div class="cop-foot">
+        <div class="cop-ask"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--ai)" stroke-width="2"><path d="M12 3a4 4 0 0 1 4 4v1a3 3 0 0 1 0 6h-1l-3 3-3-3H8a3 3 0 0 1 0-6V7a4 4 0 0 1 4-4Z"/></svg><input placeholder="Hỏi trợ lý về sản phẩm, chính sách…" /><button class="go"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 14-7-5 14-2-5z"/></svg></button></div>
+        <div class="cop-sugs"><span class="sug">Phí ship & thời gian giao</span><span class="sug">Chính sách đổi trả</span><span class="sug">Hạn dùng sau mở nắp</span></div>
+      </div>
+    </aside>
+  </section>
+  <!-- ============ SCREEN · BOTS ============ -->
+  <section class="screen" id="bots">
+    <style>
+      #bots{flex-direction:column;background:var(--bg)}
+      .bots-scroll{flex:1;overflow:auto;padding:22px}
+      .bots-wrap{max-width:1120px;margin:0 auto}
+      .bots-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+      .botcard{background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden;transition:.15s}
+      .botcard:hover{box-shadow:var(--sh);border-color:#d6d9e6}
+      .bc-head{display:flex;align-items:center;gap:12px;padding:16px 18px 12px}
+      .bc-ic{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;color:#fff;flex:none;font-size:20px}
+      .bc-nm{font-size:15px;font-weight:800;font-family:var(--fs-display)}
+      .bc-role{font-size:12px;color:var(--muted);margin-top:1px}
+      .bc-body{padding:0 18px 14px}
+      .bc-desc{font-size:12.5px;color:var(--ink-2);line-height:1.5;margin-bottom:12px}
+      .bc-chn{display:flex;align-items:center;gap:6px;margin-bottom:12px}
+      .bc-chn .lb{font-size:11px;color:var(--muted);font-weight:600;font-family:var(--fs-display);margin-right:2px}
+      .bc-stats{display:flex;gap:0;border:1px solid var(--line-2);border-radius:11px;overflow:hidden}
+      .bc-stat{flex:1;padding:9px 10px;text-align:center;border-right:1px solid var(--line-2)}
+      .bc-stat:last-child{border-right:none}
+      .bc-stat .n{font-size:16px;font-weight:800;font-family:var(--fs-display)}
+      .bc-stat .l{font-size:10px;color:var(--muted);margin-top:1px}
+      .bc-foot{display:flex;align-items:center;gap:10px;padding:12px 18px;border-top:1px solid var(--line-2);background:var(--surface-2)}
+      .bc-foot .spacer{flex:1}
+      .newbot{border:1.5px dashed var(--line);border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:var(--muted);font-weight:700;font-family:var(--fs-display);min-height:220px;background:transparent}
+      .newbot .plus{width:44px;height:44px;border-radius:13px;background:var(--brand-soft);color:var(--brand);display:grid;place-items:center;font-size:22px}
+    </style>
+
+    <div class="pg-head">
+      <h2>Bots</h2>
+      <div class="sub">Các trợ lý trong workspace · 1 tenant nhiều bot</div>
+      <div class="spacer"></div>
+      <button class="btn primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>Tạo bot</button>
+    </div>
+
+    <div class="bots-scroll">
+      <div class="bots-wrap">
+        <div class="bots-grid">
+          <!-- bot 1 -->
+          <div class="botcard">
+            <div class="bc-head">
+              <div class="bc-ic" style="background:linear-gradient(135deg,var(--ai),#b58bff)">🎧</div>
+              <div><div class="bc-nm">CSKH LUMIÈRE <span class="pill ok" style="height:20px;font-size:10px;margin-left:4px"><span class="dot"></span>Đang chạy</span></div><div class="bc-role">Chăm sóc & hỏi đáp khách hàng</div></div>
+            </div>
+            <div class="bc-body">
+              <div class="bc-desc">Trả lời FAQ, chính sách, tư vấn nhẹ; chuyển Agent khi khiếu nại hoặc khách yêu cầu.</div>
+              <div class="bc-chn"><span class="lb">Kênh:</span><span class="ch-badge ch-zalo">Z</span><span class="ch-badge ch-mess">M</span></div>
+              <div class="bc-stats"><div class="bc-stat"><div class="n">18</div><div class="l">kịch bản</div></div><div class="bc-stat"><div class="n">3</div><div class="l">kho RAG</div></div><div class="bc-stat"><div class="n">312</div><div class="l">chat/ngày</div></div></div>
+            </div>
+            <div class="bc-foot"><span class="pill ai" style="height:24px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3v12M18 9v6"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="6" r="2"/></svg>intent-based</span><div class="spacer"></div><button class="btn sm">Nhân bản</button><button class="btn sm primary" data-goto="intents">Cấu hình →</button></div>
+          </div>
+
+          <!-- bot 2 -->
+          <div class="botcard">
+            <div class="bc-head">
+              <div class="bc-ic" style="background:linear-gradient(135deg,#3B4CE0,#7b8bff)">🛍️</div>
+              <div><div class="bc-nm">Tư vấn bán hàng <span class="pill ok" style="height:20px;font-size:10px;margin-left:4px"><span class="dot"></span>Đang chạy</span></div><div class="bc-role">Tư vấn sản phẩm & chốt đơn</div></div>
+            </div>
+            <div class="bc-body">
+              <div class="bc-desc">Tư vấn theo loại da, gợi ý combo, dẫn khách để lại thông tin đặt hàng.</div>
+              <div class="bc-chn"><span class="lb">Kênh:</span><span class="ch-badge ch-zalo">Z</span><span class="ch-badge" style="background:var(--ink)">☎</span></div>
+              <div class="bc-stats"><div class="bc-stat"><div class="n">12</div><div class="l">kịch bản</div></div><div class="bc-stat"><div class="n">2</div><div class="l">kho RAG</div></div><div class="bc-stat"><div class="n">204</div><div class="l">chat/ngày</div></div></div>
+            </div>
+            <div class="bc-foot"><span class="pill ai" style="height:24px">intent-based</span><div class="spacer"></div><button class="btn sm">Nhân bản</button><button class="btn sm primary" data-goto="intents">Cấu hình →</button></div>
+          </div>
+
+          <!-- bot 3 -->
+          <div class="botcard">
+            <div class="bc-head">
+              <div class="bc-ic" style="background:linear-gradient(135deg,#E8890C,#f5b64e)">📦</div>
+              <div><div class="bc-nm">Xác nhận đơn COD <span class="pill ok" style="height:20px;font-size:10px;margin-left:4px"><span class="dot"></span>Đang chạy</span></div><div class="bc-role">Chủ động · webhook Sapo</div></div>
+            </div>
+            <div class="bc-body">
+              <div class="bc-desc">Nhắn chủ động khi có đơn COD mới, xác nhận/sửa/huỷ qua nút bấm — dùng thêm <b>action Gọi API</b>.</div>
+              <div class="bc-chn"><span class="lb">Kênh:</span><span class="ch-badge ch-zalo">Z</span><span class="pill warn" style="height:22px;font-size:10.5px">⚡ Proactive</span></div>
+              <div class="bc-stats"><div class="bc-stat"><div class="n">4</div><div class="l">kịch bản</div></div><div class="bc-stat"><div class="n">1</div><div class="l">API tool</div></div><div class="bc-stat"><div class="n">96%</div><div class="l">xác nhận</div></div></div>
+            </div>
+            <div class="bc-foot"><span class="pill warn" style="height:24px">intent + API</span><div class="spacer"></div><button class="btn sm">Nhân bản</button><button class="btn sm primary" data-goto="intents">Cấu hình →</button></div>
+          </div>
+
+          <!-- bot 4 (internal) -->
+          <div class="botcard">
+            <div class="bc-head">
+              <div class="bc-ic" style="background:linear-gradient(135deg,#12A150,#4fd18a)">🧑‍💼</div>
+              <div><div class="bc-nm">Trợ lý nội bộ <span class="pill ok" style="height:20px;font-size:10px;margin-left:4px"><span class="dot"></span>Đang chạy</span></div><div class="bc-role">Cho nhân viên (Copilot)</div></div>
+            </div>
+            <div class="bc-body">
+              <div class="bc-desc">Phục vụ agent tra cứu nhanh trong hộp thư. Được xem cả <b>kho nội bộ</b> (giá sỉ) mà bot khách không thấy.</div>
+              <div class="bc-chn"><span class="lb">Phạm vi:</span><span class="pill mut" style="height:22px;font-size:10.5px">Chỉ nội bộ</span></div>
+              <div class="bc-stats"><div class="bc-stat"><div class="n">—</div><div class="l">RAG thuần</div></div><div class="bc-stat"><div class="n">4</div><div class="l">kho RAG</div></div><div class="bc-stat"><div class="n">89</div><div class="l">hỏi/ngày</div></div></div>
+            </div>
+            <div class="bc-foot"><span class="pill ai" style="height:24px">RAG-only</span><div class="spacer"></div><button class="btn sm">Nhân bản</button><button class="btn sm primary" data-goto="intents">Cấu hình →</button></div>
+          </div>
+        </div>
+
+        <div style="margin-top:16px"><button class="newbot" style="width:100%;min-height:96px;flex-direction:row"><span class="plus" style="width:38px;height:38px;font-size:19px">+</span>Tạo bot mới cho workspace này</button></div>
+      </div>
+    </div>
+  </section>
+  <!-- ============ SCREEN · Ý ĐỊNH & HÀNH ĐỘNG ============ -->
+  <section class="screen" id="intents">
+    <style>
+      #intents{flex-direction:column;background:var(--bg)}
+      #intents .explain{margin:0;display:flex;align-items:center;gap:9px;font-size:12px;color:var(--ai-ink);background:var(--ai-soft);border:1px solid #e3d8ff;border-radius:100px;padding:5px 12px;font-weight:600;font-family:var(--fs-display)}
+      #intents .mini-badge{font-size:10.5px;font-weight:800;font-family:var(--fs-display);border-radius:6px;padding:2px 7px;color:#fff}
+      #intents .b-rag{background:var(--ai)}#intents .b-hand{background:var(--danger)}#intents .b-tpl{background:var(--brand)}
+      #intents .iw-body{flex:1;display:flex;min-height:0}
+      #intents .iw-main{flex:1;min-width:0;overflow:auto;padding:16px 22px}
+      #intents .thead{display:grid;grid-template-columns:1.4fr 1.6fr 148px 60px 34px;gap:14px;padding:0 16px 9px;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.03em;font-family:var(--fs-display)}
+      #intents .irow{display:grid;grid-template-columns:1.4fr 1.6fr 148px 60px 34px;gap:14px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:13px;padding:12px 16px;margin-bottom:9px;cursor:pointer;transition:.12s}
+      #intents .irow:hover{border-color:#d3d6e6;box-shadow:var(--sh-sm)}
+      #intents .irow.selr{border-color:var(--brand);box-shadow:0 0 0 3px var(--brand-soft)}
+      #intents .iname{font-weight:700;font-family:var(--fs-display);font-size:13px;display:flex;align-items:center;gap:9px}
+      #intents .iname .ig{width:26px;height:26px;border-radius:8px;display:grid;place-items:center;flex:none;font-size:13px;color:#fff}
+      #intents .iname .sub{font-size:11px;color:var(--muted);font-weight:500;margin-top:1px}
+      #intents .phrases{display:flex;flex-wrap:wrap;gap:5px}
+      #intents .ph{font-size:11.5px;color:var(--ink-2);background:var(--surface-2);border:1px solid var(--line);border-radius:100px;padding:3px 9px;white-space:nowrap}
+      #intents .ph.more{color:var(--muted);font-weight:600}
+      #intents .act{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;font-family:var(--fs-display);border-radius:8px;padding:5px 10px;width:fit-content}
+      #intents .act.rag{background:var(--ai-soft);color:var(--ai-ink)}
+      #intents .act.hand{background:var(--danger-soft);color:var(--danger)}
+      #intents .act.tpl{background:var(--brand-soft);color:var(--brand-ink)}
+      #intents .act .ai-note{font-size:10px;font-weight:600;color:var(--muted)}
+      #intents .more{width:30px;height:30px;border-radius:8px;border:none;background:transparent;color:var(--muted);display:grid;place-items:center}
+      #intents .irow.fallback{background:linear-gradient(#fff,#fbfaff);border-style:dashed}
+      #intents .irow.fallback .iname .ig{background:#9AA0B8}
+      #intents .editor{width:360px;flex:none;background:var(--surface);border-left:1px solid var(--line);overflow:auto}
+      #intents .ed-head{padding:15px 18px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:11px}
+      #intents .ed-head .ic{width:34px;height:34px;border-radius:10px;background:var(--ai);display:grid;place-items:center;color:#fff;flex:none;font-size:15px}
+      #intents .ed-head h3{font-size:14.5px;font-weight:800}
+      #intents .ed-head .s{font-size:11.5px;color:var(--muted)}
+      #intents .ed-body{padding:16px 18px}
+      #intents .fld{margin-bottom:18px}
+      #intents .fld>label{font-size:11px;font-weight:700;font-family:var(--fs-display);color:var(--ink-2);text-transform:uppercase;letter-spacing:.03em;display:flex;align-items:center;gap:6px;margin-bottom:8px}
+      #intents .fld>label .cnt{margin-left:auto;color:var(--muted);font-weight:600;text-transform:none}
+      #intents .fld input,#intents .fld select,#intents .fld textarea{width:100%;border:1px solid var(--line);border-radius:9px;padding:9px 11px;font-family:inherit;font-size:13px;background:var(--surface-2);outline:none;color:var(--ink)}
+      #intents .fld textarea{resize:vertical;min-height:70px;line-height:1.5}
+      #intents .trainlist{display:flex;flex-direction:column;gap:6px}
+      #intents .trainlist .t{display:flex;align-items:center;gap:8px;background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:7px 10px;font-size:12.5px}
+      #intents .trainlist .t .rm{margin-left:auto;color:var(--muted)}
+      #intents .trainlist .t .q{color:var(--ai)}
+      #intents .addph{border:1px dashed var(--line);border-radius:8px;padding:8px;font-size:12px;font-weight:600;font-family:var(--fs-display);color:var(--ink-2);background:transparent;width:100%;text-align:left}
+      #intents .actsel{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+      #intents .actopt{border:1.5px solid var(--line);border-radius:11px;padding:11px 8px;text-align:center;background:var(--surface-2);cursor:pointer;transition:.12s}
+      #intents .actopt .ai{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;margin:0 auto 6px;color:#fff;font-size:15px}
+      #intents .actopt .nm{font-size:11.5px;font-weight:700;font-family:var(--fs-display);line-height:1.2}
+      #intents .actopt.on.rag{border-color:var(--ai);background:var(--ai-soft)}
+      #intents .actopt.on.hand{border-color:var(--danger);background:var(--danger-soft)}
+      #intents .actopt.on.tpl{border-color:var(--brand);background:var(--brand-soft)}
+      #intents .adv-row{margin-top:8px;display:flex;align-items:center;justify-content:center;gap:7px;font-size:11.5px;color:var(--muted);font-weight:600;font-family:var(--fs-display);border:1px dashed var(--line);border-radius:9px;padding:7px}
+      #intents .cfg{display:none;margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}
+      #intents .cfg.show{display:block}
+      #intents .cfg-h{font-size:11px;font-weight:700;font-family:var(--fs-display);color:var(--muted);text-transform:uppercase;letter-spacing:.03em;margin-bottom:12px}
+      #intents .kchips{display:flex;flex-wrap:wrap;gap:6px}
+      #intents .kchip{font-size:12px;font-weight:600;font-family:var(--fs-display);border-radius:8px;padding:6px 10px;display:flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface-2)}
+      #intents .kchip.on{background:var(--ai-soft);border-color:#d8caff;color:var(--ai-ink)}
+      #intents .kchip .x{color:var(--ai)}
+      #intents .thr .val{display:flex;justify-content:space-between;font-size:12px;font-weight:700;font-family:var(--fs-mono);margin-bottom:6px}
+      #intents .track{height:6px;border-radius:6px;background:var(--line);position:relative}
+      #intents .track .fill{position:absolute;left:0;top:0;bottom:0;border-radius:6px;background:linear-gradient(90deg,var(--ai),var(--brand))}
+      #intents .track .knob{position:absolute;top:-5px;width:16px;height:16px;border-radius:50%;background:#fff;border:2px solid var(--ai);box-shadow:var(--sh-sm)}
+      #intents .chain{display:flex;align-items:center;gap:8px;margin-top:8px;background:var(--surface-2);border:1px solid var(--line);border-radius:9px;padding:9px 11px;font-size:12px}
+      #intents .chain .lbl{color:var(--muted);font-weight:600;font-family:var(--fs-display)}
+      #intents .chain select{border:none;background:none;font-weight:700;font-family:var(--fs-display);color:var(--danger);font-size:12px;outline:none;width:auto}
+      #intents .opt{display:flex;align-items:flex-start;gap:10px;padding:12px 0;border-top:1px solid var(--line-2)}
+      #intents .opt .t{font-weight:700;font-family:var(--fs-display);font-size:12.5px}
+      #intents .opt .d{font-size:11.5px;color:var(--ink-2);margin-top:2px;line-height:1.45}
+      #intents .opt .sw{margin-left:auto}
+      #intents .qr{display:flex;flex-wrap:wrap;gap:6px}
+      #intents .qr .q{font-size:12px;font-weight:600;font-family:var(--fs-display);background:var(--brand-soft);color:var(--brand-ink);border:1px solid #cdd4ff;border-radius:100px;padding:5px 11px}
+      #intents .qr .add{border:1px dashed var(--line);color:var(--ink-2);background:transparent}
+    </style>
+
+    <div class="pg-head">
+      <h2>Kịch bản bot</h2>
+      <span class="botpick"><span class="ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="4" y="8" width="16" height="12" rx="3"/><path d="M12 8V4"/></svg></span><span><span class="k">Bot</span><br><span class="nm">CSKH LUMIÈRE</span></span><span class="chev">▾</span></span>
+      <div class="explain">Mỗi kịch bản → <b>1 hành động</b>: <span class="mini-badge b-rag">RAG</span><span class="mini-badge b-hand">Chuyển Agent</span><span class="mini-badge b-tpl">Mẫu</span></div>
+      <div class="spacer"></div>
+      <button class="btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9 9 0 0 0-9 9zM12 8v4l3 2"/></svg>Chạy thử</button>
+      <button class="btn primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>Thêm kịch bản</button>
+    </div>
+
+    <div class="iw-body">
+      <div class="iw-main">
+        <div class="thead"><div>Kịch bản</div><div>Mẫu câu nhận diện</div><div>Hành động</div><div>Bật</div><div></div></div>
+
+        <div class="irow"><div class="iname"><span class="ig" style="background:var(--ok)">👋</span><div>Chào hỏi / mở đầu<div class="sub">Hệ thống</div></div></div><div class="phrases"><span class="ph">shop ơi</span><span class="ph">alo</span><span class="ph more">+5</span></div><div><span class="act tpl">💬 Mẫu trả lời</span></div><div><span class="sw on"></span></div><button class="more">⋯</button></div>
+
+        <div class="irow"><div class="iname"><span class="ig" style="background:var(--ai)">✨</span><div>Tư vấn sản phẩm<div class="sub">Tư vấn</div></div></div><div class="phrases"><span class="ph">da dầu dùng gì</span><span class="ph">serum nào tốt</span><span class="ph more">+12</span></div><div><span class="act rag">🔎 RAG <span class="ai-note">· 2 kho</span></span></div><div><span class="sw on"></span></div><button class="more">⋯</button></div>
+
+        <div class="irow"><div class="iname"><span class="ig" style="background:var(--ai)">🚚</span><div>Phí ship & giao hàng<div class="sub">Đơn hàng</div></div></div><div class="phrases"><span class="ph">ship bao nhiêu</span><span class="ph">mấy ngày tới</span><span class="ph more">+6</span></div><div><span class="act rag">🔎 RAG</span></div><div><span class="sw on"></span></div><button class="more">⋯</button></div>
+
+        <div class="irow selr"><div class="iname"><span class="ig" style="background:var(--ai)">↩️</span><div>Hỏi chính sách đổi trả<div class="sub">CSKH</div></div></div><div class="phrases"><span class="ph">đổi trả thế nào</span><span class="ph">bị lỗi trả được ko</span><span class="ph more">+9</span></div><div><span class="act rag">🔎 RAG <span class="ai-note">· →Agent</span></span></div><div><span class="sw on"></span></div><button class="more">⋯</button></div>
+
+        <div class="irow"><div class="iname"><span class="ig" style="background:var(--warn)">📦</span><div>Kiểm tra tình trạng đơn<div class="sub">Đơn hàng · cần API</div></div></div><div class="phrases"><span class="ph">đơn của tôi đâu</span><span class="ph">giao chưa</span><span class="ph more">+4</span></div><div><span class="act hand">👤 Chuyển Agent <span class="ai-note">· tạm</span></span></div><div><span class="sw on"></span></div><button class="more">⋯</button></div>
+
+        <div class="irow"><div class="iname"><span class="ig" style="background:var(--danger)">🙋</span><div>Yêu cầu gặp nhân viên<div class="sub">CSKH</div></div></div><div class="phrases"><span class="ph">gặp người thật</span><span class="ph">cho gặp tư vấn viên</span><span class="ph more">+3</span></div><div><span class="act hand">👤 Chuyển Agent</span></div><div><span class="sw on"></span></div><button class="more">⋯</button></div>
+
+        <div class="irow"><div class="iname"><span class="ig" style="background:var(--danger)">😤</span><div>Khiếu nại chất lượng<div class="sub">CSKH · ưu tiên cao</div></div></div><div class="phrases"><span class="ph">hàng dởm</span><span class="ph">dùng bị kích ứng</span><span class="ph more">+7</span></div><div><span class="act hand">👤 Chuyển Agent <span class="ai-note">· +tin</span></span></div><div><span class="sw on"></span></div><button class="more">⋯</button></div>
+
+        <div class="irow fallback"><div class="iname"><span class="ig">⁉️</span><div>Không khớp kịch bản nào<div class="sub">mặc định (fallback)</div></div></div><div class="phrases"><span class="ph more">mọi câu chưa huấn luyện</span></div><div><span class="act rag">🔎 RAG <span class="ai-note">· →Agent</span></span></div><div><span class="sw on"></span></div><button class="more">⋯</button></div>
+      </div>
+
+      <aside class="editor">
+        <div class="ed-head"><div class="ic">↩️</div><div><h3>Hỏi chính sách đổi trả</h3><div class="s">Kịch bản · id <span class="mono">faq_return</span></div></div></div>
+        <div class="ed-body">
+          <div class="fld"><label>Mẫu câu huấn luyện <span class="cnt">12</span></label>
+            <div class="trainlist"><div class="t"><span class="q">“</span>đổi trả thế nào<span class="rm">✕</span></div><div class="t"><span class="q">“</span>bị lỗi trả được không<span class="rm">✕</span></div><div class="t"><span class="q">“</span>hết hạn đổi chưa<span class="rm">✕</span></div></div>
+            <button class="addph" style="margin-top:6px">+ Thêm mẫu câu (AI tự mở rộng biến thể)</button>
+          </div>
+          <div class="fld"><label>Khi khớp kịch bản này → làm gì?</label>
+            <div class="actsel">
+              <div class="actopt rag on" data-act="rag"><div class="ai" style="background:var(--ai)">🔎</div><div class="nm">Tra cứu<br>tri thức</div></div>
+              <div class="actopt hand" data-act="hand"><div class="ai" style="background:var(--danger)">👤</div><div class="nm">Chuyển Agent<br>nhân viên</div></div>
+              <div class="actopt tpl" data-act="tpl"><div class="ai" style="background:var(--brand)">💬</div><div class="nm">Mẫu<br>trả lời</div></div>
+            </div>
+            <div class="adv-row">🔌 Gọi API / Tool <span style="opacity:.7">(nâng cao — bật khi cần)</span></div>
+          </div>
+
+          <div class="cfg show" data-cfg="rag">
+            <div class="cfg-h">🔎 Cấu hình tra cứu tri thức</div>
+            <div class="fld"><label>Kho tri thức dùng (nhiều kho)</label><div class="kchips"><span class="kchip on">Chính sách đổi trả <span class="x">✕</span></span><span class="kchip on">FAQ CSKH <span class="x">✕</span></span><span class="kchip" style="color:var(--muted)">+ Thêm kho</span></div></div>
+            <div class="fld"><label>Độ tin cậy tối thiểu</label><div class="thr"><div class="val"><span>Chỉ trả lời khi ≥</span><span style="color:var(--ai)">75%</span></div><div class="track"><div class="fill" style="width:75%"></div><div class="knob" style="left:calc(75% - 8px)"></div></div></div></div>
+            <div class="fld" style="margin-bottom:0"><label>Nếu dưới ngưỡng / không có đáp</label><div class="chain"><span class="lbl">chuyển sang →</span><select><option>👤 Chuyển Agent nhân viên</option><option>💬 Mẫu “để em kiểm tra lại”</option></select></div></div>
+            <div class="opt"><div><div class="t">Kèm nút gợi ý</div><div class="d">Hiện 2–3 câu hỏi liên quan sau khi trả lời.</div></div><span class="sw on"></span></div>
+            <div class="opt"><div><div class="t">Bắt buộc trích nguồn</div><div class="d">Câu trả lời kèm tài liệu tham chiếu.</div></div><span class="sw on"></span></div>
+          </div>
+
+          <div class="cfg" data-cfg="hand">
+            <div class="cfg-h">👤 Cấu hình chuyển Agent</div>
+            <div class="fld"><label>Chuyển tới</label><select><option>Nhóm CSKH – đang trực</option><option>Nhân viên phụ trách khách</option></select></div>
+            <div class="fld"><label>Tin nhắn báo khách trước khi chuyển</label><textarea>Em kết nối anh/chị với nhân viên tư vấn ngay ạ, chờ em chút xíu nhé 💛</textarea></div>
+            <div class="opt" style="border-top:none;padding-top:0"><div><div class="t">Tạo ticket</div><div class="d">Lưu hội thoại thành phiếu hỗ trợ.</div></div><span class="sw on"></span></div>
+            <div class="opt"><div><div class="t">Ngoài giờ làm việc</div><div class="d">Thu thập thông tin + hẹn gọi lại.</div></div><span class="sw on"></span></div>
+          </div>
+
+          <div class="cfg" data-cfg="tpl">
+            <div class="cfg-h">💬 Cấu hình mẫu trả lời</div>
+            <div class="fld"><label>Nội dung (chèn được biến)</label><textarea>Dạ chào anh/chị 💛 Em là trợ lý LUMIÈRE. Anh/chị cần tư vấn sản phẩm, kiểm tra đơn hay đổi trả ạ?</textarea></div>
+            <div class="fld"><label>Nút gợi ý (mỗi nút gắn 1 kịch bản)</label><div class="qr"><span class="q">Tư vấn sản phẩm ✕</span><span class="q">Kiểm tra đơn ✕</span><span class="q">Đổi trả ✕</span><span class="q add">+ Thêm</span></div></div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+  <!-- ============ SCREEN · TRI THỨC (RAG collections) ============ -->
+  <section class="screen" id="knowledge">
+    <style>
+      #knowledge{flex-direction:column;background:var(--bg)}
+      #knowledge .kb-body{flex:1;display:flex;min-height:0}
+      /* collection list */
+      #knowledge .kcol{width:248px;flex:none;background:var(--surface);border-right:1px solid var(--line);overflow:auto;padding:12px}
+      #knowledge .kcol .h{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;font-family:var(--fs-display);margin:6px 6px 8px;display:flex;align-items:center}
+      #knowledge .kcol .h .add{margin-left:auto;color:var(--brand);font-size:15px}
+      #knowledge .coll{padding:10px 11px;border-radius:10px;cursor:pointer;margin-bottom:3px}
+      #knowledge .coll:hover{background:var(--surface-2)}
+      #knowledge .coll.on{background:var(--brand-soft)}
+      #knowledge .coll .c1{display:flex;align-items:center;gap:9px}
+      #knowledge .coll .ci{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;flex:none;font-size:14px}
+      #knowledge .coll .cn{font-weight:700;font-family:var(--fs-display);font-size:12.5px}
+      #knowledge .coll.on .cn{color:var(--brand-ink)}
+      #knowledge .coll .cs{font-size:10.5px;color:var(--muted);margin-top:3px;padding-left:37px}
+      #knowledge .coll .scope{font-size:9px;font-weight:800;font-family:var(--fs-display);padding:1px 6px;border-radius:5px;margin-left:auto}
+      #knowledge .sc-cust{background:var(--ok-soft);color:var(--ok)}#knowledge .sc-int{background:var(--warn-soft);color:var(--warn)}
+      /* main sources */
+      #knowledge .kmain{flex:1;min-width:0;overflow:auto;padding:18px 20px}
+      #knowledge .kstat{display:flex;gap:12px;margin-bottom:16px}
+      #knowledge .st{flex:1;background:var(--surface);border:1px solid var(--line);border-radius:13px;padding:12px 15px}
+      #knowledge .st .n{font-size:20px;font-weight:800;font-family:var(--fs-display)}
+      #knowledge .st .l{font-size:11.5px;color:var(--muted);margin-top:1px}
+      #knowledge .ktool{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+      #knowledge .ktool h3{font-size:14px;font-weight:700}
+      #knowledge .ktable{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+      #knowledge .krow{display:grid;grid-template-columns:1fr 96px 110px 100px 44px;gap:12px;align-items:center;padding:12px 15px;border-bottom:1px solid var(--line-2)}
+      #knowledge .krow.head{background:var(--surface-2);font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.03em;font-family:var(--fs-display)}
+      #knowledge .krow:last-child{border-bottom:none}
+      #knowledge .kdoc{display:flex;align-items:center;gap:10px;min-width:0}
+      #knowledge .kic{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;flex:none;font-size:14px}
+      #knowledge .kic.pdf{background:#FDE7E7;color:#E5484D}#knowledge .kic.faq{background:var(--ai-soft);color:var(--ai-ink)}#knowledge .kic.web{background:#E3F0FF;color:#0068FF}#knowledge .kic.doc{background:#E3F5EC;color:#12A150}
+      #knowledge .kn{font-weight:600;font-family:var(--fs-display);font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+      #knowledge .ksub{font-size:11px;color:var(--muted);margin-top:1px}
+      #knowledge .kmore{width:30px;height:30px;border-radius:8px;border:none;background:transparent;color:var(--muted);display:grid;place-items:center}
+      #knowledge .stlbl{display:flex;align-items:center;gap:8px}
+      #knowledge .stlbl .txt{font-size:11.5px;font-weight:600;font-family:var(--fs-display)}
+      #knowledge .rev{font-size:10.5px;font-weight:700;font-family:var(--fs-display);background:#EAF0FF;color:var(--brand-ink);padding:2px 8px;border-radius:6px}
+      /* right rail */
+      #knowledge .krail{width:312px;flex:none;background:var(--surface);border-left:1px solid var(--line);overflow:auto;padding:17px}
+      #knowledge .krail h3{font-size:14px;font-weight:800;display:flex;align-items:center;gap:8px;margin-bottom:14px}
+      #knowledge .usedby{background:var(--surface-2);border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:16px}
+      #knowledge .usedby .ub-h{font-size:11px;font-weight:700;color:var(--ink-2);font-family:var(--fs-display);margin-bottom:9px;display:flex;align-items:center;gap:6px}
+      #knowledge .botrow{display:flex;align-items:center;gap:9px;padding:6px 0;font-size:12.5px;font-weight:600;font-family:var(--fs-display)}
+      #knowledge .botrow .bi{width:24px;height:24px;border-radius:7px;display:grid;place-items:center;color:#fff;font-size:12px;flex:none}
+      #knowledge .ctl{padding:13px 0;border-top:1px solid var(--line-2)}
+      #knowledge .ctl-top{display:flex;align-items:center;gap:8px}
+      #knowledge .ctl-top .t{font-weight:700;font-family:var(--fs-display);font-size:12.5px}
+      #knowledge .ctl-top .sw{margin-left:auto}
+      #knowledge .ctl .d{font-size:11.5px;color:var(--ink-2);margin-top:5px;line-height:1.5}
+      #knowledge .field{margin-top:6px;font-size:12px;font-weight:600;font-family:var(--fs-display);background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:8px 10px;display:flex;align-items:center;gap:8px}
+    </style>
+
+    <div class="pg-head">
+      <h2>Tri thức</h2>
+      <div class="sub">Kho RAG dùng chung · gắn cho nhiều bot</div>
+      <div class="spacer"></div>
+      <button class="btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-6M12 3v13M8 7l4-4 4 4"/></svg>Đồng bộ</button>
+      <button class="btn primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>Thêm nguồn</button>
+    </div>
+
+    <div class="kb-body">
+      <!-- collections -->
+      <div class="kcol">
+        <div class="h">Kho tri thức <span class="add">+</span></div>
+        <div class="coll on"><div class="c1"><span class="ci" style="background:var(--danger-soft)">↩️</span><span class="cn">Chính sách & đổi trả</span><span class="scope sc-cust">KHÁCH</span></div><div class="cs">6 nguồn · 3 bot dùng</div></div>
+        <div class="coll"><div class="c1"><span class="ci" style="background:var(--ai-soft)">✨</span><span class="cn">Sản phẩm & tư vấn</span><span class="scope sc-cust">KHÁCH</span></div><div class="cs">21 nguồn · 2 bot dùng</div></div>
+        <div class="coll"><div class="c1"><span class="ci" style="background:#E3F0FF">💬</span><span class="cn">FAQ CSKH</span><span class="scope sc-cust">KHÁCH</span></div><div class="cs">34 Q&A · 3 bot dùng</div></div>
+        <div class="coll"><div class="c1"><span class="ci" style="background:var(--warn-soft)">🔒</span><span class="cn">Nội bộ (giá sỉ…)</span><span class="scope sc-int">NỘI BỘ</span></div><div class="cs">9 nguồn · 1 bot dùng</div></div>
+      </div>
+
+      <!-- sources in collection -->
+      <div class="kmain">
+        <div class="kstat">
+          <div class="st"><div class="n">6</div><div class="l">Nguồn trong kho</div></div>
+          <div class="st"><div class="n">3</div><div class="l">Bot đang dùng kho</div></div>
+          <div class="st"><div class="n">96%</div><div class="l">Tỷ lệ trả lời được</div></div>
+          <div class="st"><div class="n">1.4k</div><div class="l">Lượt trích dẫn / tuần</div></div>
+        </div>
+        <div class="ktool"><h3>Nguồn trong “Chính sách & đổi trả”</h3><div class="spacer" style="flex:1"></div><button class="chip on">Tất cả</button><button class="chip">Chờ duyệt</button></div>
+        <div class="ktable">
+          <div class="krow head"><div>Tài liệu / Nguồn</div><div>Loại</div><div>Trích dẫn</div><div>Trạng thái</div><div></div></div>
+          <div class="krow"><div class="kdoc"><div class="kic pdf">📄</div><div style="min-width:0"><div class="kn">Chính sách đổi trả v3.pdf</div><div class="ksub">12 trang · đã index</div></div></div><div style="font-size:12px">PDF</div><div style="font-size:12px"><b>428</b></div><div class="stlbl"><span class="sw on"></span><span class="txt" style="color:var(--ok)">Bật</span></div><button class="kmore">⋯</button></div>
+          <div class="krow"><div class="kdoc"><div class="kic faq">💬</div><div style="min-width:0"><div class="kn">FAQ Kích ứng / dị ứng</div><div class="ksub">11 cặp hỏi–đáp</div></div></div><div style="font-size:12px">FAQ</div><div style="font-size:12px"><b>689</b></div><div class="stlbl"><span class="sw on"></span><span class="txt" style="color:var(--ok)">Bật</span></div><button class="kmore">⋯</button></div>
+          <div class="krow"><div class="kdoc"><div class="kic web">🌐</div><div style="min-width:0"><div class="kn">lumiere.vn/doi-tra</div><div class="ksub">Tự đồng bộ 24h</div></div></div><div style="font-size:12px">Web</div><div style="font-size:12px"><b>203</b></div><div class="stlbl"><span class="sw on"></span><span class="txt" style="color:var(--ok)">Bật</span></div><button class="kmore">⋯</button></div>
+          <div class="krow"><div class="kdoc"><div class="kic doc">📗</div><div style="min-width:0"><div class="kn">Quy trình hoàn tiền 2026.docx</div><div class="ksub">Chờ admin duyệt</div></div></div><div style="font-size:12px">Word</div><div style="font-size:12px"><span class="rev">Chờ duyệt</span></div><div class="stlbl"><span class="sw"></span><span class="txt" style="color:var(--muted)">Nháp</span></div><button class="kmore">⋯</button></div>
+        </div>
+      </div>
+
+      <!-- collection settings -->
+      <aside class="krail">
+        <h3><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--brand)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Thiết lập kho</h3>
+
+        <div class="usedby">
+          <div class="ub-h"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="8" width="16" height="12" rx="3"/><path d="M12 8V4"/></svg>Bot đang dùng kho này (1 kho → nhiều bot)</div>
+          <div class="botrow"><span class="bi" style="background:var(--ai)">🎧</span>CSKH LUMIÈRE</div>
+          <div class="botrow"><span class="bi" style="background:var(--brand)">🛍️</span>Tư vấn bán hàng</div>
+          <div class="botrow"><span class="bi" style="background:var(--ok)">🧑‍💼</span>Trợ lý nội bộ</div>
+        </div>
+
+        <div class="ctl" style="border-top:none;padding-top:0">
+          <div class="ctl-top"><span class="t">Embedding model</span></div>
+          <div class="field"><span class="pill ai" style="height:20px;font-size:10px">✦</span>Alohub-VN Embed · 768d</div>
+          <div class="d">Cả kho dùng chung 1 model. Đổi model cần re-index.</div>
+        </div>
+        <div class="ctl"><div class="ctl-top"><span class="t">Phạm vi</span></div>
+          <div class="field"><span class="pill ok" style="height:20px;font-size:10px">KHÁCH</span>Bot khách được đọc</div>
+          <div class="d">Kho “Nội bộ” đặt phạm vi <b>Chỉ agent</b> để không lộ cho bot khách.</div>
+        </div>
+        <div class="ctl"><div class="ctl-top"><span class="t">Duyệt trước khi phát hành</span><span class="sw on"></span></div><div class="d">Nguồn mới/sửa vào “Chờ duyệt”, admin duyệt mới dùng.</div></div>
+        <div class="ctl"><div class="ctl-top"><span class="t">Bắt buộc trích nguồn</span><span class="sw on"></span></div><div class="d">Câu trả lời phải kèm tài liệu tham chiếu.</div></div>
+      </aside>
+    </div>
+  </section>
+  <!-- ============ SCREEN · MÔ HÌNH AI ============ -->
+  <section class="screen" id="models">
+    <style>
+      #models{flex-direction:column;background:var(--bg)}
+      #models .mscroll{flex:1;overflow:auto;padding:22px}
+      #models .mwrap{max-width:1000px;margin:0 auto}
+      #models .msec{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:20px 22px;margin-bottom:16px}
+      #models .stop{display:flex;align-items:center;gap:12px;margin-bottom:4px}
+      #models .sic{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;flex:none}
+      #models h3{font-size:15px;font-weight:800}
+      #models .ssub{font-size:12.5px;color:var(--muted);margin:2px 0 18px}
+      #models .stop .spacer{flex:1}
+      #models .chain{display:flex;flex-direction:column;gap:10px}
+      #models .prov{display:flex;align-items:center;gap:14px;border:1px solid var(--line);border-radius:14px;padding:13px 16px;background:var(--surface-2)}
+      #models .prov.primary{border-color:var(--ai);box-shadow:0 0 0 1px var(--ai) inset;background:linear-gradient(90deg,#f7f3ff,var(--surface-2))}
+      #models .rank{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;font-weight:800;font-family:var(--fs-display);font-size:12px;flex:none;background:var(--line-2);color:var(--ink-2)}
+      #models .prov.primary .rank{background:var(--ai);color:#fff}
+      #models .plogo{width:40px;height:40px;border-radius:11px;display:grid;place-items:center;flex:none;font-weight:800;font-family:var(--fs-display);font-size:15px;color:#fff}
+      #models .pinfo{min-width:0;flex:1}
+      #models .pnm{font-weight:700;font-family:var(--fs-display);font-size:14px;display:flex;align-items:center;gap:8px}
+      #models .pmodel{font-size:12px;color:var(--ink-2);margin-top:2px;font-family:var(--fs-mono)}
+      #models .pmeta{display:flex;gap:16px;flex:none;margin-right:6px}
+      #models .m .mv{font-weight:700;font-family:var(--fs-mono);font-size:13px;text-align:right}
+      #models .m .ml{font-size:10.5px;color:var(--muted);text-align:right}
+      #models .rt{font-size:10.5px;font-weight:800;font-family:var(--fs-display);padding:2px 9px;border-radius:100px}
+      #models .rt.pri{background:var(--ai);color:#fff}#models .rt.fb{background:var(--line-2);color:var(--ink-2)}#models .rt.self{background:var(--ok-soft);color:var(--ok)}
+      #models .health{width:8px;height:8px;border-radius:50%;flex:none;background:var(--ok)}
+      #models .drag{color:var(--muted)}
+      #models .addp{border:1px dashed var(--line);border-radius:12px;padding:11px;text-align:center;font-size:12.5px;font-weight:700;font-family:var(--fs-display);color:var(--ink-2);background:transparent}
+      #models .route{display:grid;grid-template-columns:1fr 180px 180px;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line-2)}
+      #models .route.head{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.03em;font-family:var(--fs-display)}
+      #models .route:last-child{border-bottom:none}
+      #models .task{font-weight:600;font-family:var(--fs-display);font-size:13px}
+      #models .task span{display:block;font-size:11.5px;color:var(--muted);font-weight:400;font-family:var(--fs-body)}
+      #models .msel{border:1px solid var(--line);border-radius:9px;padding:7px 10px;font-size:12px;background:var(--surface-2);display:flex;align-items:center;gap:8px;font-weight:600;font-family:var(--fs-display)}
+    </style>
+
+    <div class="pg-head">
+      <h2>Mô hình AI</h2>
+      <div class="sub">Multi-vendor · primary / fallback · self-host</div>
+      <div class="spacer"></div>
+      <span class="pill ok"><span class="dot"></span>Tất cả hoạt động</span>
+      <button class="btn primary">Lưu cấu hình</button>
+    </div>
+
+    <div class="mscroll">
+      <div class="mwrap">
+        <div class="msec">
+          <div class="stop"><div class="sic" style="background:var(--ai-soft);color:var(--ai-ink)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a4 4 0 0 1 4 4v1a3 3 0 0 1 0 6h-1l-3 3-3-3H8a3 3 0 0 1 0-6V7a4 4 0 0 1 4-4Z"/></svg></div><h3>Mô hình ngôn ngữ (LLM)</h3><div class="spacer"></div><span class="pill mut">Tự chuyển fallback khi lỗi/timeout</span></div>
+          <p class="ssub">Sinh câu trả lời. Gọi lần lượt từ trên xuống; lỗi/quá tải tự nhường mục kế tiếp.</p>
+          <div class="chain">
+            <div class="prov primary"><span class="drag">⠿</span><span class="rank">1</span><div class="plogo" style="background:linear-gradient(135deg,var(--ai),#b58bff)">A</div><div class="pinfo"><div class="pnm">Alohub-VN 8B <span class="rt self">SELF-HOST</span> <span class="rt pri">PRIMARY</span></div><div class="pmodel">alohub/vi-chat-8b · GPU L40S nội bộ</div></div><div class="pmeta"><div class="m"><div class="mv">~0.4s</div><div class="ml">độ trễ</div></div><div class="m"><div class="mv">₫0</div><div class="ml">/1k</div></div></div><span class="health"></span></div>
+            <div class="prov"><span class="drag">⠿</span><span class="rank">2</span><div class="plogo" style="background:#10A37F">O</div><div class="pinfo"><div class="pnm">OpenAI <span class="rt fb">FALLBACK</span></div><div class="pmodel">gpt-4o-mini</div></div><div class="pmeta"><div class="m"><div class="mv">~0.8s</div><div class="ml">độ trễ</div></div><div class="m"><div class="mv">₫3.6</div><div class="ml">/1k</div></div></div><span class="health"></span></div>
+            <div class="prov"><span class="drag">⠿</span><span class="rank">3</span><div class="plogo" style="background:#D9772E">C</div><div class="pinfo"><div class="pnm">Anthropic <span class="rt fb">FALLBACK</span></div><div class="pmodel">claude-haiku-4-5</div></div><div class="pmeta"><div class="m"><div class="mv">~0.9s</div><div class="ml">độ trễ</div></div><div class="m"><div class="mv">₫4.2</div><div class="ml">/1k</div></div></div><span class="health"></span></div>
+            <button class="addp">+ Thêm nhà cung cấp (Google Gemini, Viettel AI…)</button>
+          </div>
+        </div>
+
+        <div class="msec">
+          <div class="stop"><div class="sic" style="background:var(--brand-soft);color:var(--brand-ink)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><circle cx="5" cy="6" r="2"/><circle cx="19" cy="6" r="2"/><circle cx="5" cy="18" r="2"/><circle cx="19" cy="18" r="2"/></svg></div><h3>Mô hình Embedding</h3><div class="spacer"></div><span class="pill warn"><span class="dot"></span>Đổi model = re-index</span></div>
+          <p class="ssub">Vector hoá tri thức & câu hỏi để tìm ngữ nghĩa. Giữ ổn định.</p>
+          <div class="chain">
+            <div class="prov primary"><span class="drag">⠿</span><span class="rank">1</span><div class="plogo" style="background:linear-gradient(135deg,var(--brand),#7b8bff)">A</div><div class="pinfo"><div class="pnm">Alohub-VN Embed <span class="rt self">SELF-HOST</span> <span class="rt pri">PRIMARY</span></div><div class="pmodel">alohub/vi-embed-base · 768d · tối ưu tiếng Việt</div></div><div class="pmeta"><div class="m"><div class="mv">₫0</div><div class="ml">/1k</div></div></div><span class="health"></span></div>
+            <div class="prov"><span class="drag">⠿</span><span class="rank">2</span><div class="plogo" style="background:#10A37F">O</div><div class="pinfo"><div class="pnm">OpenAI <span class="rt fb">FALLBACK</span></div><div class="pmodel">text-embedding-3-large · 3072d</div></div><div class="pmeta"><div class="m"><div class="mv">₫1.1</div><div class="ml">/1k</div></div></div><span class="health"></span></div>
+          </div>
+        </div>
+
+        <div class="msec" style="margin-bottom:0">
+          <div class="stop"><div class="sic" style="background:var(--ok-soft);color:var(--ok)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg></div><h3>Định tuyến theo tác vụ</h3><div class="spacer"></div><span class="pill mut">Chọn model phù hợp từng việc</span></div>
+          <p class="ssub">Không phải việc nào cũng cần model mạnh nhất — tối ưu chi phí & độ trễ.</p>
+          <div class="route head"><div>Tác vụ</div><div>Mô hình chính</div><div>Dự phòng</div></div>
+          <div class="route"><div class="task">Trả lời khách (bot)<span>nhanh, rẻ, tự nhiên</span></div><div class="msel"><span class="health" style="background:var(--ai)"></span>Alohub-VN 8B</div><div class="msel"><span class="health" style="background:#10A37F"></span>gpt-4o-mini</div></div>
+          <div class="route"><div class="task">Trợ lý cho agent<span>suy luận sâu</span></div><div class="msel"><span class="health" style="background:#D9772E"></span>claude-haiku-4-5</div><div class="msel"><span class="health" style="background:var(--ai)"></span>Alohub-VN 8B</div></div>
+          <div class="route"><div class="task">Phân loại kịch bản / cảm xúc<span>nhận diện intent + handoff</span></div><div class="msel"><span class="health" style="background:var(--ai)"></span>Alohub-VN 8B</div><div class="msel"><span class="health" style="background:#10A37F"></span>gpt-4o-mini</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ============ SCREEN · TRỢ LÝ AI (độc lập) ============ -->
+  <section class="screen" id="assistant">
+    <style>
+      #assistant{flex-direction:column;background:var(--bg)}
+      #assistant .aw{flex:1;display:flex;min-height:0}
+      #assistant .aside{width:250px;flex:none;background:var(--surface);border-right:1px solid var(--line);padding:14px;display:flex;flex-direction:column;gap:5px}
+      #assistant .anew{height:40px;border-radius:10px;background:var(--ai);color:#fff;border:none;font-weight:700;font-family:var(--fs-display);display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:8px}
+      #assistant .lbl{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;padding:8px 8px 4px;font-family:var(--fs-display)}
+      #assistant .hist{padding:9px 10px;border-radius:9px;font-size:12.5px;color:var(--ink-2);cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+      #assistant .hist:hover{background:var(--surface-2)}
+      #assistant .hist.on{background:var(--ai-soft);color:var(--ai-ink);font-weight:600}
+      #assistant .amain{flex:1;display:flex;flex-direction:column;min-width:0}
+      #assistant .ascroll{flex:1;overflow:auto;padding:26px 0}
+      #assistant .ainner{max-width:760px;margin:0 auto;padding:0 24px}
+      #assistant .qline{display:flex;gap:12px;align-items:flex-start;margin-bottom:16px}
+      #assistant .qav{width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,#f0a,#70f);color:#fff;display:grid;place-items:center;font-weight:700;font-family:var(--fs-display);flex:none;font-size:12px}
+      #assistant .qtxt{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:11px 14px;font-size:14px;font-weight:500}
+      #assistant .aline{display:flex;gap:12px;align-items:flex-start}
+      #assistant .aav{width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,var(--ai),#b58bff);color:#fff;display:grid;place-items:center;flex:none}
+      #assistant .abody{flex:1;min-width:0}
+      #assistant .abody h4{font-size:15px;margin:2px 0 10px;font-weight:700}
+      #assistant .abody p{margin:0 0 11px;font-size:14px;line-height:1.65}
+      #assistant .abody ul{margin:0 0 11px;padding-left:20px}#assistant .abody li{margin:5px 0;font-size:14px;line-height:1.6}
+      #assistant .src{display:inline-flex;align-items:center;gap:4px;font-size:10.5px;font-weight:700;font-family:var(--fs-display);background:var(--ai-soft);color:var(--ai-ink);padding:1px 6px;border-radius:5px}
+      #assistant .asrc{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+      #assistant .cite{font-size:11px;color:var(--ink-2);background:var(--surface-2);border:1px solid var(--line);border-radius:7px;padding:4px 8px;display:flex;align-items:center;gap:6px}
+      #assistant .aact{display:flex;gap:6px;margin-top:6px}
+      #assistant .acomp{flex:none;padding:16px 24px 22px;background:linear-gradient(transparent,var(--bg) 30%)}
+      #assistant .abox{max-width:760px;margin:0 auto;border:1px solid var(--line);border-radius:16px;background:var(--surface);box-shadow:var(--sh);padding:12px 14px}
+      #assistant .abox textarea{width:100%;border:none;outline:none;resize:none;font-family:inherit;font-size:14.5px;min-height:26px}
+      #assistant .abox .row{display:flex;align-items:center;gap:8px;margin-top:8px}
+      #assistant .scope{font-size:11.5px;font-weight:600;font-family:var(--fs-display);color:var(--ink-2);background:var(--surface-2);border:1px solid var(--line);border-radius:100px;padding:5px 11px;display:flex;align-items:center;gap:6px}
+      #assistant .infob{max-width:760px;margin:0 auto 18px;font-size:11.5px;color:var(--muted);text-align:center}
+      #assistant .send{height:34px;padding:0 15px;border-radius:9px;border:none;background:var(--ai);color:#fff;font-weight:700;font-family:var(--fs-display);font-size:13px;display:inline-flex;align-items:center;gap:7px}
+          #assistant .botwrap{position:relative}
+      #assistant .botpick{display:flex;align-items:center;gap:9px;background:var(--surface-2);border:1px solid var(--line);border-radius:10px;padding:6px 11px;cursor:pointer}
+      #assistant .botpick .ic{width:26px;height:26px;border-radius:7px;background:var(--ai);display:grid;place-items:center;color:#fff;flex:none}
+      #assistant .botpick .k{font-size:9.5px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.04em;font-family:var(--fs-display)}
+      #assistant .botpick .nm{font-size:13px;font-weight:700;font-family:var(--fs-display)}
+      #assistant .botpick .chev{color:var(--muted);font-size:11px}
+      #assistant .botmenu{position:absolute;top:46px;left:0;min-width:246px;background:var(--surface);border:1px solid var(--line);border-radius:13px;box-shadow:0 20px 50px -18px rgba(20,22,42,.4);padding:6px;z-index:60;display:none}
+      #assistant .botmenu.on{display:block}
+      #assistant .botmenu .mh{font-size:9.5px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;padding:7px 10px 5px;font-family:var(--fs-display)}
+      #assistant .botmenu .bm{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:9px;cursor:pointer}
+      #assistant .botmenu .bm:hover{background:var(--surface-2)}
+      #assistant .botmenu .bm .bi{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;color:#fff;font-size:14px;flex:none}
+      #assistant .botmenu .bm .t{font-weight:700;font-family:var(--fs-display);font-size:12.5px}
+      #assistant .botmenu .bm .s{font-size:10.5px;color:var(--muted);margin-top:1px}
+      #assistant .botmenu .bm .ck{margin-left:auto;color:var(--ai);font-weight:800;opacity:0}
+      #assistant .botmenu .bm.sel .ck{opacity:1}
+</style>
+    <div class="pg-head">
+      <div class="cop-logo" style="width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,var(--ai),#b58bff);display:grid;place-items:center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.9"><path d="M12 3a4 4 0 0 1 4 4v1a3 3 0 0 1 0 6h-1l-3 3-3-3H8a3 3 0 0 1 0-6V7a4 4 0 0 1 4-4Z"/></svg></div>
+      <div><h2>Trợ lý AI</h2><div class="sub">Hỏi đáp trên tri thức nội bộ · cho nhân viên</div></div>
+      <div class="botwrap">
+        <span class="botpick" onclick="toggleBotMenu(event)"><span class="ic"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#fff" stroke-width="2"><rect x="4" y="8" width="16" height="12" rx="3"/><path d="M12 8V4"/></svg></span><span><span class="k">Bot</span><br><span class="nm" id="asstBotName">CSKH LUMIÈRE</span></span><span class="chev">▾</span></span>
+        <div class="botmenu" id="asstBotMenu">
+          <div class="mh">Chọn bot trong tenant · LUMIÈRE</div>
+          <div class="bm sel" onclick="pickBot(this,'CSKH LUMIÈRE','3 kho · 34 tài liệu')"><span class="bi" style="background:var(--ai)">🎧</span><div><div class="t">CSKH LUMIÈRE</div><div class="s">Chăm sóc & hỏi đáp · 3 kho</div></div><span class="ck">✓</span></div>
+          <div class="bm" onclick="pickBot(this,'Tư vấn bán hàng','2 kho · 21 tài liệu')"><span class="bi" style="background:var(--brand)">🛍️</span><div><div class="t">Tư vấn bán hàng</div><div class="s">Tư vấn & chốt đơn · 2 kho</div></div><span class="ck">✓</span></div>
+          <div class="bm" onclick="pickBot(this,'Trợ lý nội bộ','4 kho · 42 tài liệu')"><span class="bi" style="background:var(--ok)">🧑‍💼</span><div><div class="t">Trợ lý nội bộ</div><div class="s">Cho nhân viên · gồm kho nội bộ</div></div><span class="ck">✓</span></div>
+        </div>
+      </div>
+      <div class="spacer"></div>
+      <span class="pill ai"><span class="dot"></span><span id="asstScope">3 kho · 34 tài liệu</span></span>
+    </div>
+    <div class="aw">
+      <div class="aside">
+        <button class="anew"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>Hỏi mới</button>
+        <div class="lbl">Gần đây</div>
+        <div class="hist on">Chính sách đổi trả khách VIP</div>
+        <div class="hist">Serum B5 + tretinol?</div>
+        <div class="hist">Phí ship nội thành & tỉnh</div>
+        <div class="hist">Combo quà tặng tháng 7</div>
+      </div>
+      <div class="amain">
+        <div class="ascroll"><div class="ainner">
+          <div class="qline"><div class="qav">NA</div><div class="qtxt">Khách mua 5 ngày trước, đã mở nắp dùng thử nhưng bị kích ứng. Chính sách đổi trả xử lý sao?</div></div>
+          <div class="aline"><div class="aav"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 3a4 4 0 0 1 4 4v1a3 3 0 0 1 0 6h-1l-3 3-3-3H8a3 3 0 0 1 0-6V7a4 4 0 0 1 4-4Z"/></svg></div>
+            <div class="abody">
+              <h4>Kích ứng khi dùng thử — được đổi/trả trong 7 ngày</h4>
+              <p>Với sản phẩm đã mở nắp <b>do kích ứng da</b>, shop áp dụng chính sách đặc biệt:</p>
+              <ul><li>Thời hạn <b>7 ngày</b> từ khi nhận — khách ở ngày 5, còn hợp lệ. <span class="src">📄 mục 3.2</span></li><li>Còn tối thiểu <b>80% sản phẩm</b>, kèm ảnh vùng da.</li><li>Đổi sang dòng dịu nhẹ (Cica) hoặc hoàn tiền 100%. Phí ship shop chịu. <span class="src">📄 mục 4</span></li></ul>
+              <div class="asrc"><span class="cite"><span class="ch-badge" style="background:var(--ai);width:16px;height:16px;border-radius:5px">📄</span>Chính sách đổi trả v3.pdf</span><span class="cite"><span class="ch-badge" style="background:var(--ok);width:16px;height:16px;border-radius:5px">✓</span>FAQ Kích ứng</span></div>
+              <div class="aact"><button class="btn sm">Sao chép</button><button class="btn sm">👍 Hữu ích</button><button class="btn sm">👎 Chưa đúng</button></div>
+            </div>
+          </div>
+        </div></div>
+        <div class="acomp">
+          <div class="infob">Trợ lý chỉ trả lời từ tri thức đã duyệt. Agent nên kiểm tra trước khi gửi khách.</div>
+          <div class="abox"><textarea rows="1" placeholder="Hỏi về sản phẩm, chính sách, quy trình…"></textarea>
+            <div class="row"><span class="scope"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg>Toàn bộ kho (gồm nội bộ)</span><div class="spacer" style="flex:1"></div><button class="send">Hỏi <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 14-7-5 14-2-5z"/></svg></button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SCREEN · KHÁCH HÀNG ============ -->
+  <section class="screen" id="customer">
+    <style>
+      #customer{flex-direction:column;background:radial-gradient(circle at 30% 20%,#2a2f52,#14162a)}
+      #customer .stage{flex:1;display:flex;align-items:center;justify-content:center;gap:50px;padding:30px;overflow:auto;flex-wrap:wrap}
+      #customer .copy{max-width:300px;color:#fff}
+      #customer .eyebrow{font-size:12px;font-weight:700;font-family:var(--fs-display);color:#C9B6FF;letter-spacing:.08em;text-transform:uppercase}
+      #customer .copy h2{font-size:27px;font-weight:800;color:#fff;margin:10px 0 14px;line-height:1.2}
+      #customer .copy p{font-size:14px;color:#B9BCDD;line-height:1.65;margin:0 0 18px}
+      #customer .cp{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;color:#fff;font-weight:800;font-family:var(--fs-display);border:2px solid transparent}
+      #customer .cp.on{border-color:#fff;box-shadow:0 0 0 4px rgba(255,255,255,.12)}
+      #customer .legend{margin-top:24px;display:flex;flex-direction:column;gap:11px}
+      #customer .lg{display:flex;gap:11px;align-items:flex-start;font-size:13px;color:#D5D7EC}
+      #customer .lg .n{width:22px;height:22px;border-radius:7px;background:rgba(255,255,255,.12);display:grid;place-items:center;font-weight:800;font-family:var(--fs-display);font-size:11px;flex:none;color:#fff}
+      #customer .phone{width:338px;height:704px;background:#000;border-radius:44px;padding:11px;box-shadow:0 40px 90px -30px rgba(0,0,0,.8),0 0 0 2px #34385f;flex:none}
+      #customer .scr{width:100%;height:100%;background:#EAF1F8;border-radius:34px;overflow:hidden;display:flex;flex-direction:column;position:relative}
+      #customer .notch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:118px;height:26px;background:#000;border-radius:0 0 16px 16px;z-index:5}
+      #customer .ph{background:var(--zalo);color:#fff;padding:36px 14px 12px;display:flex;align-items:center;gap:11px;flex:none}
+      #customer .pav{width:38px;height:38px;border-radius:50%;background:#fff;display:grid;place-items:center;font-weight:800;font-family:var(--fs-display);color:var(--zalo);flex:none}
+      #customer .ph .nm{font-weight:700;font-family:var(--fs-display);font-size:15px}
+      #customer .ph .st{font-size:11px;opacity:.85;display:flex;align-items:center;gap:5px}
+      #customer .pbody{flex:1;overflow:auto;padding:14px 12px;display:flex;flex-direction:column;gap:8px}
+      #customer .psys{align-self:center;font-size:10.5px;color:#7d8397;background:rgba(255,255,255,.7);padding:3px 11px;border-radius:100px}
+      #customer .pm{max-width:80%;padding:9px 12px;border-radius:16px;font-size:13.5px;line-height:1.5}
+      #customer .pm.bot{align-self:flex-start;background:#fff;color:#1a1d2a;border-bottom-left-radius:5px;box-shadow:0 1px 2px rgba(0,0,0,.06)}
+      #customer .pm.me{align-self:flex-end;background:var(--zalo);color:#fff;border-bottom-right-radius:5px}
+      #customer .botnm{font-size:10.5px;font-weight:800;font-family:var(--fs-display);color:var(--ai-ink);margin-bottom:3px;display:flex;align-items:center;gap:5px}
+      #customer .pchips{display:flex;flex-wrap:wrap;gap:7px;align-self:flex-start;max-width:88%}
+      #customer .pchip{background:#fff;border:1px solid #dbe3ec;color:var(--zalo);font-size:12px;font-weight:600;font-family:var(--fs-display);padding:7px 12px;border-radius:100px}
+      #customer .handoff{align-self:center;background:var(--warn-soft);border:1px solid #f3dcae;color:#8a5a08;font-size:11.5px;font-weight:600;padding:7px 13px;border-radius:12px;text-align:center;max-width:90%}
+      #customer .ajoin{align-self:center;background:var(--ok-soft);border:1px solid #b6e6c9;color:#0c7a3c;font-size:11.5px;font-weight:600;padding:7px 13px;border-radius:12px}
+      #customer .pm.agent{align-self:flex-start;background:#EAF4FF;color:#123;border-bottom-left-radius:5px;border:1px solid #cfe4fb}
+      #customer .pm.agent .botnm{color:var(--brand-ink)}
+      #customer .pfoot{flex:none;background:#fff;border-top:1px solid #e3e8ef;padding:9px 12px;display:flex;align-items:center;gap:9px}
+      #customer .pin{flex:1;background:#EEF2F7;border-radius:100px;padding:9px 14px;font-size:13px;color:#8b93a5}
+      #customer .psend{width:34px;height:34px;border-radius:50%;background:var(--zalo);display:grid;place-items:center;color:#fff;flex:none}
+    </style>
+    <div class="notice">Trải nghiệm phía <b>KHÁCH HÀNG</b> — hiển thị ngay trong Zalo / Messenger / WhatsApp, không phải app riêng.</div>
+    <div class="stage">
+      <div class="copy">
+        <div class="eyebrow">Trải nghiệm khách hàng</div>
+        <h2>Bot trả lời tức thì, chuyển người thật khi cần</h2>
+        <p>Khách nhắn qua kênh quen thuộc. Trợ lý trả lời ngay từ tri thức của shop, chuyển Agent mượt cho nhân viên khi cần.</p>
+        <div style="display:flex;gap:8px"><div class="cp on" style="background:var(--zalo)">Z</div><div class="cp" style="background:var(--mess)">M</div><div class="cp" style="background:var(--wa)">W</div></div>
+        <div class="legend">
+          <div class="lg"><span class="n">1</span><div>Bot chào & gợi ý nhanh các chủ đề.</div></div>
+          <div class="lg"><span class="n">2</span><div>Trả lời dựa trên tri thức đã duyệt.</div></div>
+          <div class="lg"><span class="n">3</span><div>Chủ đề nhạy cảm → tự chuyển Agent.</div></div>
+          <div class="lg"><span class="n">4</span><div>Nhân viên tiếp nhận, thấy toàn bộ lịch sử.</div></div>
+        </div>
+      </div>
+      <div class="phone"><div class="scr">
+        <div class="notch"></div>
+        <div class="ph"><span style="font-size:20px">‹</span><div class="pav">L</div><div><div class="nm">LUMIÈRE Official</div><div class="st"><span class="ch-badge ch-zalo" style="width:13px;height:13px;border-radius:4px">Z</span>Zalo OA · Trả lời ngay</div></div><div style="flex:1"></div><span style="font-size:18px">⋮</span></div>
+        <div class="pbody">
+          <div class="psys">Hôm nay 14:20</div>
+          <div class="pm bot"><div class="botnm"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 3a4 4 0 0 1 4 4v1a3 3 0 0 1 0 6h-1l-3 3-3-3H8a3 3 0 0 1 0-6V7a4 4 0 0 1 4-4Z"/></svg>Trợ lý LUMIÈRE</div>Dạ em chào chị 💛 Em là trợ lý của LUMIÈRE. Chị cần em hỗ trợ gì ạ?</div>
+          <div class="pchips"><span class="pchip">Tư vấn sản phẩm</span><span class="pchip">Kiểm tra đơn</span><span class="pchip">Đổi trả</span></div>
+          <div class="pm me">Cho mình hỏi phí ship về Đà Nẵng và bao lâu tới ạ?</div>
+          <div class="pm bot"><div class="botnm"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 3a4 4 0 0 1 4 4v1a3 3 0 0 1 0 6h-1l-3 3-3-3H8a3 3 0 0 1 0-6V7a4 4 0 0 1 4-4Z"/></svg>Trợ lý LUMIÈRE</div>Dạ Đà Nẵng: phí ship <b>25.000đ</b>, giao <b>2–3 ngày</b> ạ. Đơn từ <b>350k</b> được <b>freeship</b> nhé!</div>
+          <div class="pm me">Mình mua serum bị kích ứng, muốn khiếu nại đổi trả</div>
+          <div class="handoff">⚖️ Chủ đề khiếu nại — đang kết nối nhân viên…</div>
+          <div class="ajoin">👤 Ngọc Anh (CSKH) đã tham gia</div>
+          <div class="pm agent"><div class="botnm">Ngọc Anh · CSKH</div>Dạ chào chị, em là Ngọc Anh ạ. Em rất tiếc về trải nghiệm này 🥺 Chị gửi giúp em mã đơn và 2–3 ảnh vùng da để em hỗ trợ đổi trả ngay ạ.</div>
+        </div>
+        <div class="pfoot"><span style="font-size:20px;color:#9aa2b1">＋</span><div class="pin">Nhập tin nhắn…</div><span style="font-size:19px;color:#9aa2b1">🙂</span><div class="psend"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m5 12 14-7-5 14-2-5z"/></svg></div></div>
+      </div></div>
+    </div>
+  </section>
+
+
+  <style id="responsive">
+  /* ===== fix: let flex/grid scroll areas shrink so footers (composer) stay visible on short viewports ===== */
+  .app,.screen{min-height:0}
+  #inbox .ibx-col,#inbox .conv,#inbox .copilot,#inbox .msgs,#inbox .ibx-threads,#inbox .cop-body{min-height:0}
+  #intents .iw-body,#intents .iw-main,#intents .editor{min-height:0}
+  #knowledge .kb-body,#knowledge .kmain,#knowledge .kcol,#knowledge .krail{min-height:0}
+  #assistant .aw,#assistant .amain,#assistant .ascroll,#assistant .aside{min-height:0}
+  #bots .bots-scroll,#models .mscroll,#customer .stage{min-height:0}
+  /* ===== responsive layer (overrides per-screen styles) ===== */
+  @media (max-width:1280px){
+    #inbox.active{grid-template-columns:288px minmax(0,1fr) 324px}
+    #inbox .conv{min-width:0}
+    #intents .editor{width:314px}
+    #knowledge .kcol{width:214px}
+    #knowledge .krail{width:278px}
+    #assistant .aside{width:214px}
+  }
+  @media (max-width:1080px){
+    #inbox.active{grid-template-columns:272px minmax(0,1fr)}
+    #inbox .copilot{display:none}
+    #intents .editor{display:none}
+    #intents .explain{display:none}
+    #intents .thead,#intents .irow{grid-template-columns:1.5fr 150px 58px 34px}
+    #intents .thead>div:nth-child(2),#intents .phrases{display:none}
+    #knowledge .krail{display:none}
+    #knowledge .kmain{min-width:0}
+    #bots .bots-grid{grid-template-columns:1fr}
+    #assistant .aside{width:196px}
+  }
+  @media (max-width:860px){
+    #inbox.active{grid-template-columns:236px minmax(0,1fr)}
+    #knowledge .kcol{width:174px}
+    #assistant .aside{display:none}
+    #intents .thead,#intents .irow{grid-template-columns:1.4fr 148px 52px}
+    #intents .thead>div:nth-child(5),#intents .irow>.more{display:none}
+    #models .route{grid-template-columns:1fr 150px 150px}
+    .pg-head{padding:0 14px;gap:10px}
+    .pg-head .sub{display:none}
+  }
+  @media (max-width:680px){
+    .rail{width:66px}
+    .rail-btn{width:58px;font-size:9px}
+    .rail-btn svg{width:19px;height:19px}
+    .rail-grp{font-size:7.5px}
+    #inbox.active{grid-template-columns:210px minmax(0,1fr)}
+    .conv-head{padding:0 12px}
+    .msgs{padding:14px}
+    #bots .bots-scroll{padding:14px}
+    #models .mscroll{padding:14px}
+    #models .route,#models .route.head{grid-template-columns:1fr}
+    #models .route.head{display:none}
+    #models .msel{width:100%}
+  }
+  @media (max-width:560px){
+    #inbox .ibx-col{display:none}
+    #inbox.active{grid-template-columns:minmax(0,1fr)}
+    #intents .thead,#intents .irow{grid-template-columns:1fr 116px}
+    #intents .thead>div:nth-child(3),#intents .irow>div:nth-child(3){display:none}
+    .pg-head{padding:0 10px}
+    #intents .pg-head .btn:not(.primary){display:none}
+  }
+  </style>
+  <script>
+    const rail=document.querySelectorAll('.rail-btn,.rail-cust');
+    const screens=document.querySelectorAll('.screen');
+    function go(id){rail.forEach(x=>x.classList.toggle('active',x.dataset.screen===id));screens.forEach(s=>s.classList.toggle('active',s.id===id));}
+    rail.forEach(b=>b.addEventListener('click',()=>go(b.dataset.screen)));
+    document.addEventListener('click',e=>{
+      const g=e.target.closest('[data-goto]'); if(g){go(g.dataset.goto);return;}
+      const sw=e.target.closest('.sw'); if(sw){sw.classList.toggle('on');return;}
+      const chip=e.target.closest('.chip'); if(chip&&chip.parentElement){chip.parentElement.querySelectorAll('.chip').forEach(c=>c.classList.remove('on'));chip.classList.add('on');}
+      const tg=e.target.closest('.toggle button'); if(tg&&tg.parentElement){tg.parentElement.querySelectorAll('button').forEach(c=>c.classList.remove('on'));tg.classList.add('on');}
+      const ao=e.target.closest('#intents .actopt[data-act]'); if(ao){document.querySelectorAll('#intents .actopt').forEach(x=>x.classList.remove('on'));ao.classList.add('on');const a=ao.dataset.act;document.querySelectorAll('#intents .cfg').forEach(c=>c.classList.toggle('show',c.dataset.cfg===a));}
+      const ir=e.target.closest('#intents .irow'); if(ir){document.querySelectorAll('#intents .irow').forEach(x=>x.classList.remove('selr'));ir.classList.add('selr');}
+      const co=e.target.closest('#knowledge .coll'); if(co){document.querySelectorAll('#knowledge .coll').forEach(x=>x.classList.remove('on'));co.classList.add('on');}
+      const th=e.target.closest('#inbox .thread'); if(th){document.querySelectorAll('#inbox .thread').forEach(x=>x.classList.remove('sel2'));th.classList.add('sel2');}
+    });
+    document.querySelectorAll('textarea').forEach(t=>{const f=()=>{t.style.height='auto';t.style.height=t.scrollHeight+'px'};t.addEventListener('input',f);f();});
+  </script>
+
+
+
+
+
+</div>
+<script>
+function toggleBotMenu(e){e.stopPropagation();document.getElementById('asstBotMenu').classList.toggle('on');}
+function pickBot(el,name,scope){
+  document.querySelectorAll('#asstBotMenu .bm').forEach(x=>x.classList.remove('sel'));
+  el.classList.add('sel');
+  document.getElementById('asstBotName').textContent=name;
+  var sc=document.getElementById('asstScope'); if(sc) sc.textContent=scope;
+  document.getElementById('asstBotMenu').classList.remove('on');
+}
+document.addEventListener('click',function(){var m=document.getElementById('asstBotMenu'); if(m) m.classList.remove('on');});
+</script>
+</body>
+</html>
