@@ -320,6 +320,8 @@ p{margin-bottom:8px} p b{color:#0f172a}
     <marker id="fa" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto"><path d="M0,0 L7,2.5 L0,5" fill="#475569"/></marker>
     <marker id="fb" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto"><path d="M0,0 L7,2.5 L0,5" fill="#2563EB"/></marker>
     <marker id="fg" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto"><path d="M0,0 L7,2.5 L0,5" fill="#059669"/></marker>
+    <marker id="fr" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto"><path d="M0,0 L7,2.5 L0,5" fill="#DC2626"/></marker>
+    <marker id="fy" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto"><path d="M0,0 L7,2.5 L0,5" fill="#D97706"/></marker>
   </defs>
 
   <!-- ALWAYS: ① ② ③ -->
@@ -342,20 +344,26 @@ p{margin-bottom:8px} p b{color:#0f172a}
   <line x1="390" y1="68" x2="420" y2="68" stroke="#475569" stroke-width="1.5"/>
   <polygon points="440,68 460,48 480,68 460,88" fill="#FFFBEB" stroke="#D97706" stroke-width="1.5"/>
 
-  <!-- ── Branch A: 85% Observe-only → go right ── -->
+  <!-- ── Branch A: 82% Observe-only → go right ── -->
   <line x1="480" y1="58" x2="480" y2="28" stroke="#059669" stroke-width="1.5"/>
-  <line x1="480" y1="28" x2="750" y2="28" stroke="#059669" stroke-width="1.5" marker-end="url(#fg)"/>
-  <rect x="520" y="12" width="195" height="26" rx="5" fill="#D1FAE5" stroke="#86EFAC"/>
-  <text x="617" y="30" text-anchor="middle" font-size="11" font-weight="700" fill="#059669">~85% Observe-only</text>
+  <line x1="480" y1="28" x2="756" y2="28" stroke="#059669" stroke-width="1.5" marker-end="url(#fg)"/>
+  <rect x="520" y="15" width="195" height="26" rx="5" fill="#D1FAE5" stroke="#86EFAC"/>
+  <text x="617" y="33" text-anchor="middle" font-size="11" font-weight="700" fill="#059669">~82% Observe-only</text>
 
   <!-- ── Branch B: 2% Đỏ → go right ── -->
-  <line x1="480" y1="68" x2="750" y2="68" stroke="#DC2626" stroke-width="1.5" marker-end="url(#fa)"/>
-  <rect x="520" y="52" width="195" height="26" rx="5" fill="#FEE2E2" stroke="#FCA5A5"/>
-  <text x="617" y="70" text-anchor="middle" font-size="11" font-weight="700" fill="#DC2626">~2% Đỏ R1–R4 auto-escalate</text>
+  <line x1="480" y1="68" x2="756" y2="68" stroke="#DC2626" stroke-width="1.5" marker-end="url(#fr)"/>
+  <rect x="520" y="55" width="195" height="26" rx="5" fill="#FEE2E2" stroke="#FCA5A5"/>
+  <text x="617" y="73" text-anchor="middle" font-size="11" font-weight="700" fill="#DC2626">~2% Đỏ R1–R4 auto-escalate</text>
+
+  <!-- ── Branch B2: 3% Vàng → go right (giống Đỏ) ── -->
+  <line x1="471" y1="77" x2="500" y2="108" stroke="#D97706" stroke-width="1.5"/>
+  <line x1="500" y1="108" x2="756" y2="108" stroke="#D97706" stroke-width="1.5" marker-end="url(#fy)"/>
+  <rect x="520" y="95" width="195" height="26" rx="5" fill="#FEF3C7" stroke="#FCD34D"/>
+  <text x="617" y="113" text-anchor="middle" font-size="11" font-weight="700" fill="#D97706">~3% Vàng D5–D7 chờ duyệt</text>
 
   <!-- ── Branch C: 13% Reply → go down ── -->
   <line x1="460" y1="88" x2="460" y2="126" stroke="#2563EB" stroke-width="1.5"/>
-  <text x="480" y="114" font-size="10" font-weight="700" fill="#2563EB">~13% @tag</text>
+  <text x="452" y="106" text-anchor="end" font-size="10" font-weight="700" fill="#2563EB">~13% @tag</text>
 
   <!-- Reply steps: ④ ⑤ ⑥ -->
   <text x="380" y="130" font-size="10" fill="#2563EB" font-weight="700">REPLY BRANCH</text>
@@ -388,20 +396,19 @@ p{margin-bottom:8px} p b{color:#0f172a}
   <rect x="680" y="245" width="120" height="36" rx="7" fill="#FFFBEB" stroke="#FCD34D"/>
   <text x="740" y="268" text-anchor="middle" font-size="11" font-weight="700" fill="#92400E">📊 DB Tổng hợp</text>
 
-  <!-- Reply branch → merge → ⑦ ⑧ -->
-  <line x1="750" y1="160" x2="770" y2="160" stroke="#2563EB" stroke-width="1.5"/>
-  <line x1="770" y1="160" x2="770" y2="48" stroke="#2563EB" stroke-width="1.5"/>
-  <line x1="770" y1="48" x2="758" y2="48" stroke="#2563EB" stroke-width="1.5"/>
+  <!-- Reply branch → merge vào Action từ phía dưới -->
+  <line x1="750" y1="160" x2="800" y2="160" stroke="#2563EB" stroke-width="1.5"/>
+  <line x1="800" y1="160" x2="800" y2="124" stroke="#2563EB" stroke-width="1.5" marker-end="url(#fb)"/>
 
   <!-- CONVERGE ⑦ ⑧ -->
-  <rect x="760" y="24" width="80" height="40" rx="7" fill="#ECFDF5" stroke="#059669" stroke-width="1.5"/>
-  <text x="800" y="41" text-anchor="middle" font-size="11" font-weight="700" fill="#059669">⑦ Action</text>
-  <text x="800" y="54" text-anchor="middle" font-size="8" fill="#94a3b8">API · DB</text>
-  <line x1="840" y1="44" x2="865" y2="44" stroke="#475569" stroke-width="1.5" marker-end="url(#fa)"/>
+  <rect x="760" y="18" width="80" height="104" rx="7" fill="#ECFDF5" stroke="#059669" stroke-width="1.5"/>
+  <text x="800" y="64" text-anchor="middle" font-size="11" font-weight="700" fill="#059669">⑦ Action</text>
+  <text x="800" y="78" text-anchor="middle" font-size="8" fill="#94a3b8">API · DB</text>
+  <line x1="840" y1="70" x2="865" y2="70" stroke="#475569" stroke-width="1.5" marker-end="url(#fa)"/>
 
-  <rect x="870" y="24" width="40" height="40" rx="7" fill="#F1F5F9" stroke="#CBD5E1" stroke-width="1.5"/>
-  <text x="890" y="48" text-anchor="middle" font-size="11" font-weight="700" fill="#64748b">⑧</text>
-  <text x="890" y="18" text-anchor="middle" font-size="8" fill="#94a3b8">Audit</text>
+  <rect x="870" y="50" width="40" height="40" rx="7" fill="#F1F5F9" stroke="#CBD5E1" stroke-width="1.5"/>
+  <text x="890" y="74" text-anchor="middle" font-size="11" font-weight="700" fill="#64748b">⑧</text>
+  <text x="890" y="44" text-anchor="middle" font-size="8" fill="#94a3b8">Audit</text>
 </svg>
       </div>
     </div>
@@ -418,7 +425,7 @@ p{margin-bottom:8px} p b{color:#0f172a}
           <tr><td><b>④</b></td><td><b>Planner</b></td><td>Xác định intent, chọn route (RAG/DB), rewrite query</td><td>~13%</td><td>800ms–1.2s</td><td><span class="eq better">LLM reason</span></td></tr>
           <tr><td><b>⑤</b></td><td><b>Retrieval</b></td><td>RAG embed→search→rerank / DB query (giỏ hàng, tổng hợp)</td><td>~13%</td><td>300–800ms</td><td><span class="eq better">Embed</span></td></tr>
           <tr><td><b>⑥</b></td><td><b>Generation</b></td><td>Soạn câu trả lời. Xanh → reply. Vàng → draft chờ duyệt</td><td>~13%</td><td>1–2s</td><td><span class="eq better">LLM gen</span></td></tr>
-          <tr><td><b>⑦</b></td><td><b>Action</b></td><td>Gửi reply, tạo to-do, ghi Sổ Cam kết</td><td>~15%</td><td>100–300ms</td><td><span class="eq same">API</span></td></tr>
+          <tr><td><b>⑦</b></td><td><b>Action</b></td><td>Gửi reply, tạo to-do, ghi Sổ Cam kết</td><td>~18%</td><td>100–300ms</td><td><span class="eq same">API</span></td></tr>
           <tr><td><b>⑧</b></td><td><b>Audit</b></td><td>Log: step, model, tokens, cost, thời gian, nguồn dữ liệu</td><td>100%</td><td>10–30ms</td><td><span class="eq ext">None</span></td></tr>
         </tbody>
       </table>
