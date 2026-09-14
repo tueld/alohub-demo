@@ -1,0 +1,7 @@
+{
+  "rewrites": [
+    { "source": "/mockup", "destination": "/gz-mockup-v1.html" },
+    { "source": "/architecture", "destination": "/gz-architecture-v1.html" },
+    { "source": "/", "destination": "/gz-mockup-v1.html" }
+  ]
+}
