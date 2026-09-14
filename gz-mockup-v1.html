@@ -343,6 +343,9 @@ button { font-family: inherit; cursor: pointer; border: none; }
 .ibx-chip { height: 26px; padding: 0 10px; border-radius: 100px; border: 1px solid var(--alo-border); background: var(--alo-surface); font-size: 11px; font-weight: 600; color: var(--alo-text-muted); display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
 .ibx-chip.on { background: var(--alo-text); color: #fff; border-color: var(--alo-text); }
 .ibx-chip .ch-sm { width: 14px; height: 14px; border-radius: 4px; color: #fff; font-size: 7px; font-weight: 800; display: inline-grid; place-items: center; }
+.ibx-channel { display: flex; align-items: center; gap: 8px; padding: 10px 12px; border-bottom: 1px solid var(--alo-border); }
+.ibx-channel-lbl { font-size: 10px; font-weight: 700; color: var(--alo-text-faint); text-transform: uppercase; letter-spacing: .5px; white-space: nowrap; }
+.ibx-channel select { flex: 1; min-width: 0; height: 30px; border: 1px solid var(--alo-border); border-radius: 6px; font-size: 12px; font-weight: 600; padding: 0 8px; background: var(--alo-surface); color: var(--alo-text); font-family: inherit; }
 .ibx-list { flex: 1; overflow: auto; }
 
 .thread { display: flex; gap: 11px; padding: 12px 15px; border-bottom: 1px solid var(--alo-border); cursor: pointer; position: relative; }
@@ -922,13 +925,13 @@ button { font-family: inherit; cursor: pointer; border: none; }
     <div class="sb-group-title">Vận hành</div>
     <button class="sb-item active" onclick="showPage('inbox',this)"><svg class="i"><use href="#i-inbox"/></svg> Hộp thư <span class="sb-badge">18</span></button>
     <button class="sb-item" onclick="showPage('cmd',this)"><svg class="i"><use href="#i-check-square"/></svg> Ticket <span class="sb-badge">3</span></button>
-    <button class="sb-item" onclick="showPage('conv',this)"><svg class="i"><use href="#i-message-circle"/></svg> Quản lý hội thoại</button>
   </div>
 
   <div class="sb-group">
-    <div class="sb-group-title">Cấu hình bot</div>
+    <div class="sb-group-title">Thiết lập</div>
     <button class="sb-item" onclick="showPage('bots',this)"><svg class="i"><use href="#i-headphones"/></svg> Bots</button>
     <button class="sb-item" onclick="showPage('kb',this)"><svg class="i"><use href="#i-book"/></svg> Tri thức</button>
+    <button class="sb-item" onclick="showPage('conv',this)"><svg class="i"><use href="#i-message-circle"/></svg> Hội thoại</button>
   </div>
 
   <div class="sb-group">
@@ -949,13 +952,18 @@ button { font-family: inherit; cursor: pointer; border: none; }
 <div id="page-inbox" class="page active">
   <div class="ibx">
     <div class="ibx-head">
-      <h2>Hộp thư đa kênh <span class="cnt">18 mới</span></h2>
+      <h2>Hộp thư <span class="cnt">18 mới</span></h2>
       <div class="ibx-search"><svg class="i"><use href="#i-search"/></svg> Tìm khách, SĐT…</div>
     </div>
-    <div class="ibx-filters">
-      <span class="ibx-chip on">Tất cả</span>
-      <span class="ibx-chip"><span class="ch-sm" style="background:var(--alo-zalo)">Z</span> Zalo</span>
-      <span class="ibx-chip"><span class="ch-sm" style="background:#0A7CFF">M</span> Messenger</span>
+    <div class="ibx-channel">
+      <span class="ch-sm" style="width:18px;height:18px;border-radius:5px;background:var(--alo-zalo);color:#fff;font-size:9px;font-weight:800;display:inline-grid;place-items:center;flex:none">Z</span>
+      <span class="ibx-channel-lbl">Kênh</span>
+      <select>
+        <option>Tất cả tài khoản Zalo</option>
+        <option selected>Alohub OA</option>
+        <option>Giftzone OA</option>
+        <option>Nova Sales OA</option>
+      </select>
     </div>
     <div class="ibx-list">
       <div class="thread sel">
@@ -1547,15 +1555,14 @@ button { font-family: inherit; cursor: pointer; border: none; }
         </div>
 
         <div class="section">
-          <div class="section-header"><div class="section-title"><svg class="i"><use href="#i-message-square"/></svg> Kênh được gán (4)</div><button class="btn btn-primary btn-sm"><svg class="i"><use href="#i-plus"/></svg> Gán kênh</button></div>
+          <div class="section-header"><div class="section-title"><svg class="i"><use href="#i-message-circle"/></svg> Kênh được gán (3)</div><button class="btn btn-primary btn-sm"><svg class="i"><use href="#i-plus"/></svg> Gán kênh</button></div>
           <div class="banner banner-warning" style="margin-bottom:10px"><div style="font-size:12px"><svg class="i i-sm"><use href="#i-info"/></svg> <b>(Planned)</b> Backend chưa implement bảng channel→bot. Hiện botId truyền từ request.</div></div>
           <table class="table">
             <thead><tr><th style="width:32px">#</th><th>Kênh</th><th style="width:100px">Loại</th><th style="width:70px">Status</th></tr></thead>
             <tbody>
               <tr><td class="td-num">1</td><td><div style="display:flex;align-items:center;gap:8px"><div class="list-item-icon" style="background:#DBEAFE;width:26px;height:26px"><svg class="i i-sm"><use href="#i-message-circle"/></svg></div><div><div style="font-weight:600;font-size:12px">Alohub OA</div></div></div></td><td><span class="badge badge-primary">Zalo OA</span></td><td><span class="badge badge-neutral">Active</span></td></tr>
-              <tr><td class="td-num">2</td><td><div style="display:flex;align-items:center;gap:8px"><div class="list-item-icon" style="background:#DBEAFE;width:26px;height:26px"><svg class="i i-sm"><use href="#i-message-square"/></svg></div><div><div style="font-weight:600;font-size:12px">Bot thân thiện</div></div></div></td><td><span class="badge badge-primary">Messenger</span></td><td><span class="badge badge-neutral">Active</span></td></tr>
-              <tr><td class="td-num">3</td><td><div style="display:flex;align-items:center;gap:8px"><div class="list-item-icon" style="background:#DBEAFE;width:26px;height:26px"><svg class="i i-sm"><use href="#i-message-square"/></svg></div><div><div style="font-weight:600;font-size:12px">Medical pro</div></div></div></td><td><span class="badge badge-primary">Messenger</span></td><td><span class="badge badge-neutral">Active</span></td></tr>
-              <tr><td class="td-num">4</td><td><div style="display:flex;align-items:center;gap:8px"><div class="list-item-icon" style="background:#DCFCE7;width:26px;height:26px"><svg class="i i-sm"><use href="#i-message-circle"/></svg></div><div><div style="font-weight:600;font-size:12px">Reva team 1</div></div></div></td><td><span class="badge badge-primary">WhatsApp</span></td><td><span class="badge badge-neutral">Active</span></td></tr>
+              <tr><td class="td-num">2</td><td><div style="display:flex;align-items:center;gap:8px"><div class="list-item-icon" style="background:#DBEAFE;width:26px;height:26px"><svg class="i i-sm"><use href="#i-message-circle"/></svg></div><div><div style="font-weight:600;font-size:12px">Giftzone OA</div></div></div></td><td><span class="badge badge-primary">Zalo OA</span></td><td><span class="badge badge-neutral">Active</span></td></tr>
+              <tr><td class="td-num">3</td><td><div style="display:flex;align-items:center;gap:8px"><div class="list-item-icon" style="background:#DBEAFE;width:26px;height:26px"><svg class="i i-sm"><use href="#i-message-circle"/></svg></div><div><div style="font-weight:600;font-size:12px">Nova Sales OA</div></div></div></td><td><span class="badge badge-primary">Zalo OA</span></td><td><span class="badge badge-neutral">Active</span></td></tr>
             </tbody>
           </table>
         </div>
